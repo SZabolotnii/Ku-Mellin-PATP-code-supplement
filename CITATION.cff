@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite both the software and the accompanying paper."
+title: "Ku-Mellin-PATP: reproducibility code"
+repository-code: "https://github.com/SZabolotnii/Ku-Mellin-PATP-code-supplement"
+url: "https://github.com/SZabolotnii/Ku-Mellin-PATP-code-supplement"
+abstract: >-
+  Verification and reproducibility code (Python) for the paper "A
+  Stochastic-Polynomial Bridge: PATP Extension of Moment-Based Uncertainty
+  Evaluation via the Mellin Transform". Reproduces the CAS cross-checks of the
+  closed-form moment-propagation formula, the region-of-validity table, the
+  closed-form Mellin-transform table, the manufactured-solution benchmark
+  (Table 3 / Figure 1) and the real-data vibration-power case study
+  (Table 4). The Lean 4 / Mathlib formal verification lives in the companion
+  Ku_PATP repository (see README).
+type: software
+authors:
+  - family-names: "Zabolotnii"
+    given-names: "Serhii V."
+    email: "zabolotnii.serhii@csbc.edu.ua"
+    orcid: "https://orcid.org/0000-0003-0242-2234"
+version: "1.0.0"
+date-released: "2026-06-21"
+license: MIT
+keywords:
+  - Mellin transform
+  - moment propagation
+  - PATP
+  - stochastic polynomials
+  - Kunchenko decomposition space
+  - measurement uncertainty
+  - MUET
+  - GUM
+  - formal verification
+references:
+  - type: article
+    title: >-
+      A Stochastic-Polynomial Bridge: PATP Extension of Moment-Based
+      Uncertainty Evaluation via the Mellin Transform
+    authors:
+      - family-names: "Zabolotnii"
+        given-names: "Serhii V."
+    year: 2026
