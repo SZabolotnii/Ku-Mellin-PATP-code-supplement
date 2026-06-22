@@ -22,7 +22,11 @@ STEPS = [
     ("verification/cas/multinomial_validity.py","Sec. 5   (multinomial-reduction scan, 765 pairs)"),
     ("experiments/rq3_demo.py",                 "Table 3  (manufactured-solution benchmark)"),
     ("experiments/make_figure.py",              "Figure 1 (-> outputs/fig_rq3.pdf)"),
-    ("experiments/realdata_case.py",            "Table 4 / Sec. 8 (real data; needs data/105.mat)"),
+    ("experiments/twod_demo.py",                "Table 4  (separable 2-D propagation)"),
+    ("experiments/jorder_stress.py",            "Sec. 7   (higher moment orders / conditioning, j<=8)"),
+    ("experiments/alpha_sensitivity.py",        "Sec. 7   (alpha-optimizer stability)"),
+    ("experiments/realdata_case.py",            "Table 5 / Sec. 8 (real data; needs data/105.mat)"),
+    ("experiments/mellin_error.py",             "Sec. 8   (empirical-Mellin error; needs data/105.mat)"),
 ]
 
 

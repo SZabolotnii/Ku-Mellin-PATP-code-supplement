@@ -29,10 +29,15 @@ numerical claim in the paper.
 | `verification/cas/multinomial_validity.py` | **§5** — 765-pair scan establishing that the multinomial validity minimum reduces to the single-index minimum |
 | `experiments/rq3_demo.py` | **Table 3** — manufactured-solution benchmark (PATP-MUET vs polynomial MUET on 7 response surfaces, `X ~ U[0,1]`) |
 | `experiments/make_figure.py` | **Figure 1** — relative error vs moment order (`outputs/fig_rq3.pdf`) |
-| `experiments/realdata_case.py` | **Table 4 / §8** — real-data case study: propagation through a measured, non-Gaussian vibration-power input (CWRU), with bootstrap CIs |
+| `experiments/twod_demo.py` | **Table 4** — separable 2-D propagation (independent inputs, per-axis factorization `E[(g1 g2)^j] = E[g1^j] E[g2^j]`) |
+| `experiments/jorder_stress.py` | **§7** — higher moment orders (`j<=8`): exact closed form vs double-precision conditioning (`cond(A)`, 50-digit cross-check) |
+| `experiments/alpha_sensitivity.py` | **§7** — stability of `α*` across optimiser tolerance, grid density, and two independent optimisers |
+| `experiments/realdata_case.py` | **Table 5 / §8** — real-data case study: propagation through a measured, non-Gaussian vibration-power input (CWRU), with bootstrap CIs |
+| `experiments/mellin_error.py` | **§8** — empirical-Mellin estimator error: unbiasedness, `1/N` variance rate, and strip-edge (`s -> 1/2+`) blow-up on the CWRU sample |
 
 Companion `Results-*.md` files in `experiments/` carry the full per-moment tables
-and honest-limits discussion.
+and honest-limits discussion (`Results-RQ3`, `Results-2D`, `Results-JOrder`,
+`Results-AlphaSensitivity`, `Results-RealData`, `Results-MellinError`).
 
 ## Formal verification (Lean 4)
 

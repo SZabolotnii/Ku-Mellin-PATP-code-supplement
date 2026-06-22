@@ -1,6 +1,6 @@
 # Session / environment info
 
-Last reproduced **2026-06-21** with:
+Last reproduced **2026-06-22** with:
 
 | Component | Version |
 |---|---|
