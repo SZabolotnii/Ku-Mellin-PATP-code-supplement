@@ -1,6 +1,6 @@
 # data/ — real-data input (not bundled)
 
-The real-data case study (`experiments/realdata_case.py`, Table 4 / Section 8 of
+The real-data case study (`experiments/realdata_case.py`, Table 5 / Section 8 of
 the paper) uses vibration signals from the **Case Western Reserve University (CWRU)
 Bearing Data Center**. That data is **not redistributed here** (size + source terms);
 download it from the official, freely available source and drop the `.mat` files

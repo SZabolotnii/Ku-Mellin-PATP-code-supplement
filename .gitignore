@@ -12,6 +12,12 @@ __pycache__/
 .venv/
 .ipynb_checkpoints/
 
+# Lean build artifacts (lake build PATP pulls Mathlib into .lake/)
+.lake/
+*.olean
+*.ilean
+*.trace
+
 # LaTeX cruft (if a figure is compiled locally)
 *.aux
 *.log

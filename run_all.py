@@ -20,6 +20,8 @@ STEPS = [
     ("verification/cas/region_of_validity.py",  "Table 1  (region of validity)"),
     ("verification/cas/mellin_table.py",        "Table 2  (closed-form Mellin transforms)"),
     ("verification/cas/multinomial_validity.py","Sec. 5   (multinomial-reduction scan, 765 pairs)"),
+    ("verification/cas/heavy_tail_admissibility.py",
+                                                "Sec. 5.1 (heavy-tail admissibility, Prop. 2)"),
     ("experiments/rq3_demo.py",                 "Table 3  (manufactured-solution benchmark)"),
     ("experiments/make_figure.py",              "Figure 1 (-> outputs/fig_rq3.pdf)"),
     ("experiments/twod_demo.py",                "Table 4  (separable 2-D propagation)"),

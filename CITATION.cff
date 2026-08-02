@@ -4,39 +4,41 @@ title: "Ku-Mellin-PATP: reproducibility code"
 repository-code: "https://github.com/SZabolotnii/Ku-Mellin-PATP-code-supplement"
 url: "https://github.com/SZabolotnii/Ku-Mellin-PATP-code-supplement"
 abstract: >-
-  Verification and reproducibility code (Python) for the paper "A
-  Stochastic-Polynomial Bridge: PATP Extension of Moment-Based Uncertainty
-  Evaluation via the Mellin Transform". Reproduces the CAS cross-checks of the
-  closed-form moment-propagation formula, the region-of-validity table, the
-  closed-form Mellin-transform table, the manufactured-solution benchmark
-  (Table 3 / Figure 1) and the real-data vibration-power case study
-  (Table 4). The Lean 4 / Mathlib formal verification lives in the companion
-  Ku_PATP repository (see README).
+  Verification and reproducibility code for the paper "Closed-form moment
+  propagation through fractional-power response surfaces via the Mellin
+  transform". Reproduces the CAS cross-checks of the closed-form
+  moment-propagation formula, the region-of-validity table, the heavy-tail
+  admissibility condition on unbounded support, the closed-form
+  Mellin-transform table, the manufactured-solution benchmark (Table 3 /
+  Figure 1), the separable 2-D propagation (Table 4) and the real-data
+  vibration-power case study (Table 5). Includes the Lean 4 / Mathlib
+  formalization of the four supporting lemmas.
 type: software
 authors:
   - family-names: "Zabolotnii"
-    given-names: "Serhii V."
+    given-names: "Serhii"
     email: "zabolotnii.serhii@csbc.edu.ua"
     orcid: "https://orcid.org/0000-0003-0242-2234"
-version: "1.1.0"
-date-released: "2026-06-22"
+version: "1.2.0"
+date-released: "2026-08-02"
 license: MIT
 keywords:
   - Mellin transform
   - moment propagation
-  - PATP
+  - fractional moments
   - stochastic polynomials
   - Kunchenko decomposition space
   - measurement uncertainty
   - MUET
   - GUM
   - formal verification
+  - Lean 4
 references:
   - type: article
     title: >-
-      A Stochastic-Polynomial Bridge: PATP Extension of Moment-Based
-      Uncertainty Evaluation via the Mellin Transform
+      Closed-form moment propagation through fractional-power response
+      surfaces via the Mellin transform
     authors:
       - family-names: "Zabolotnii"
-        given-names: "Serhii V."
+        given-names: "Serhii"
     year: 2026
