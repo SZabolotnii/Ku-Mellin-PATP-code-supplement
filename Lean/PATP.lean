@@ -3,6 +3,7 @@ import PATP.Basis
 import PATP.Positivity
 import PATP.MellinPower
 import PATP.AlphaOneReduction
+import PATP.Audit
 
 /-!
 # PATP — Lean verification layer for Ku-Mellin-PATP
@@ -20,6 +21,8 @@ import PATP.AlphaOneReduction
 * `PATP.Positivity` — **T2**: знаковий аналіз `p_i(α)` на $[0,1]$.
 * `PATP.MellinPower` — **T3**: правило Мелліна для $Y = X^c$.
 * `PATP.AlphaOneReduction` — **T4**: степеня PATP-базису при $α=1$.
+* `PATP.Audit` — `#print axioms` для всіх 26 декларацій: збірка друкує
+  залежності, тож «зелено» стає перевірюваним твердженням, а не мовчанням.
 
 Аудит покриття Mathlib4: `Lean/PATP/MELLIN_AUDIT.md`.
 
