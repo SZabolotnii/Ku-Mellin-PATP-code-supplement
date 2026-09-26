@@ -189,6 +189,6 @@ PH4 summary maxima:
   Q2 RAW float64 deviation <= 1e-10 for j in [1, 2, 3, 4, 5, 6] on M6; first j above 1e-10: 7
   Q4 float64 relative L2 deviation at |alpha - 1/2| = 1e-3, max over targets and signs: 1.31e-09
   cond(RAW) at |alpha - 1/2| = 1e-3 (both sides): 3.999e+07, 3.997e+07
-PH5 50-digit closed form, RAW PATP-opt on M4, all j = 1..8: 3.4 ms (min of 5)
+PH5 50-digit closed form, RAW PATP-opt on M4, all j = 1..8: 3.2 ms (min of 5)
 
 elapsed 6 s

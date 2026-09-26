@@ -1,5 +1,5 @@
 """
-P1 of the PEM revision (PREM-D-26-00488; Reviewer 1, Major comment 6): the
+P1 of the revised analysis: the
 alpha = 1/2 degeneracy of the PATP basis, treated through its confluent
 (log-power) limit.
 

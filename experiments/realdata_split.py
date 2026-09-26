@@ -1,16 +1,15 @@
 """
-realdata_split.py -- out-of-sample real-data case study for the PEM revision
-(PREM-D-26-00488, task R). It replaces the in-sample design of realdata_case.py,
+realdata_split.py -- out-of-sample real-data case study of the revised analysis. It replaces the in-sample design of realdata_case.py,
 which is kept unchanged as the record of the submitted version.
 
 ===== BEGIN PRE-REGISTRATION (fixed 2026-09-26, before the first run that computes any method error) =====
 
-WHY. Reviewer 2 (Q2, Q3, Q5, Q7): the submitted case study used one vibration sample both to
-estimate the input Mellin transform and to build the output reference, so it was in-sample; the
-reviewer asks for a split or an independent record, the full bootstrap protocol, sample sizes,
-preprocessing, intervals for every moment order, and whether the responses are calibrated
-physical models. Reviewer 1 (minor 4): justify U = 3 sigma or drop it. A further point from our
-own analysis (ANALYSIS_2026-09-26.md): with the empirical Mellin transform
+WHY. The submitted case study used one vibration sample both to estimate the input Mellin
+transform and to build the output reference, so it was in-sample. This design adds a split and
+an independent record, the full bootstrap protocol, sample sizes, preprocessing, intervals for
+every moment order, an explicit statement on whether the responses are calibrated physical
+models, and a justification of the expanded-uncertainty factor. A further point: with the
+empirical Mellin transform
 M_hat(s) = mean(X^(s-1)), the closed form of PATP-MUET is a finite sum and equals
 (1/N) sum_n g_hat(X_n)^j exactly. A surrogate route can therefore only ADD surrogate error to the
 plug-in estimate (1/N) sum_n g(X_n)^j with the true g. When g is known and cheap, that plug-in
@@ -157,6 +156,11 @@ CHANGELOG after registration: bug fixes only, none of which changes the design.
   |g_hat - g1| on a log scale, because a linear axis was dominated by the poly3 residual at
   x = 0; legends moved off the data. No statistic changes, and the pre-registered part of the
   output is byte-identical to the first run's (checked by diff).
+  Public release (v2.0.0): the WHY paragraph of the block above was reworded to remove
+  references to the confidential peer review. Design, metrics, bootstrap and decision rule
+  are unchanged. The sha256 of the original registration block was
+  634c2102947bc2d5b8ac8b2ed9e4aa8efaab77234632599661948ac63a6bfe94; the hash printed by this
+  copy differs only because of that rewording.
 
 POST-HOC: no post-hoc analysis at registration time. Any later addition goes below this line,
 marked POST-HOC, and does not alter the pre-registered part above, whose sha256 is printed at
@@ -172,7 +176,7 @@ run time.
   therefore NOT supported: the tails are the ordinary variability of a difference between two
   segment moments, which grows with j.
   TABLE ROWS (added 2026-09-26 after the first run; formatting only). They print the
-  pre-registered statistics as LaTeX rows for revision/drafts/realdata.tex, so that every number
+  pre-registered statistics as LaTeX rows for the manuscript's real-data tables, so that every number
   in the draft is copied from this output rather than rounded by hand.
 
 Run (from experiments/):
@@ -890,7 +894,7 @@ RULE_TEX = {"PARITY": "parity"}
 def print_table_rows(st, boot, st1, boot1, st3, boot3, s2):
     lab = {"g1": r"$g_1$", "g2": r"$g_2$", "g3": r"$g_3$", "g4": r"$g_4$"}
     print("\n" + "=" * 100)
-    print("TABLE ROWS for revision/drafts/realdata.tex (formatting only; relative errors x 1e3, 95% percentile CI)")
+    print("TABLE ROWS for the manuscript's real-data tables (formatting only; relative errors x 1e3, 95% percentile CI)")
     print("=" * 100)
     print("% Table A (primary): response & method & grid L2 & e_1 & e_2 & e_3 & e_4 & rel. err. U(k=2)")
     for r, _, _ in RESPONSES:

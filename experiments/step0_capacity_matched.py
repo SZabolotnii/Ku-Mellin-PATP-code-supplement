@@ -1,13 +1,13 @@
 """
-Step 0 of the PEM revision (PREM-D-26-00488): does the PATP advantage survive
-a capacity-matched comparison?
+Step 0 of the revised analysis: does the PATP advantage survive a capacity-matched
+comparison?
 
-Both reviewers say the tab:rq3 gains come from surrogate fit, not from the
-propagation formula, and that the comparison is not capacity-matched
+The question is whether the tab:rq3 gains come from surrogate fit rather than from the
+propagation formula, given that the original comparison was not capacity-matched
 (PATP: 4 linear coefficients + alpha; cubic polynomial: 4 coefficients).
 This script re-runs the manufactured benchmark of rq3_demo.py (same targets,
 same 401-point grid on [1e-6, 1], same OLS fit, same alpha optimiser, same
-X ~ U[0,1] and quadrature truth) against the baselines the reviewers ask for.
+X ~ U[0,1] and quadrature truth) against capacity-matched baselines.
 
 Competitors (every one propagates exactly on its own surrogate):
   poly3      degree-3 polynomial, 4 coefficients           (paper's baseline)

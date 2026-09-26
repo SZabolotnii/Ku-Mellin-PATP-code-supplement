@@ -1,5 +1,5 @@
 """
-Mellin transform of the truncated normal (PEM revision, item R1-M4; replaces the unbacked
+Mellin transform of the truncated normal (revised Appendix A; replaces the unbacked
 "< 1e-10" sentence of the submitted Appendix A).
 
 X ~ N(mu, sigma^2) truncated to [a, b], 0 <= a < b <= inf, density

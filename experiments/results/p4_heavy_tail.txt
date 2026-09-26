@@ -1,4 +1,4 @@
-P4 heavy-tail benchmark (PREM-D-26-00488, Reviewer 1 Major 6)
+P4 heavy-tail benchmark
 PATP S=3 (i=2,3,4); PATP-r alpha in [0.0, 0.45]; PATP-opt alpha in [0, 1]; threshold 5%; mp.dps=50
 
 V1 Mellin closed form vs direct quadrature in x (mpmath, independent of the t-map):

@@ -1,12 +1,12 @@
 """
-P4 of the PEM revision (PREM-D-26-00488): heavy-tail benchmark (Reviewer 1, Major 6).
+P4 of the revised analysis: heavy-tail benchmark.
 
 QUESTION
   Proposition `prop:heavytail` shows that PATP-MUET with alpha in [0, 1/2] needs a finite
   moment of X of order j*P_S(alpha) <= j for the j-th output moment, whereas degree-S
-  polynomial MUET needs order j*S. Reviewer 1: show that this enlarged admissible region
-  yields ACCURATE engineering quantities rather than only finite formal moments.
-  Reviewer 2: otherwise the heavy-tail discussion stays an admissibility result.
+  polynomial MUET needs order j*S. Question: does this enlarged admissible region yield
+  ACCURATE engineering quantities rather than only finite formal moments? If not, the
+  heavy-tail discussion stays an admissibility result.
   The crux is extrapolation: a surrogate is fitted where g was evaluated, on a bounded
   design range [0, x_hi], but the moments integrate over the unbounded support.
 
@@ -696,7 +696,7 @@ def verify_truth(q=0.999):
 
 def main() -> int:
     t0 = time.time()
-    print("P4 heavy-tail benchmark (PREM-D-26-00488, Reviewer 1 Major 6)")
+    print("P4 heavy-tail benchmark")
     print(f"PATP S=3 (i=2,3,4); PATP-r alpha in [{ALPHA_R[0]}, {ALPHA_R[1]}]; PATP-opt alpha in [0, 1]; "
           f"threshold {THRESH:.0%}; mp.dps={mp.mp.dps}")
     print()

@@ -186,7 +186,7 @@ python 3.14.5, numpy 2.4.5, scipy 1.17.1, mpmath 1.3.0, mp.dps = 50
 ====================================================================================================
 [SET-budget] Sec. Manufactured-solution experiments, first paragraph
       quote: "both at S = 3, identical coefficient budget"
-      published: identical budget       recomputed: fitted params poly3 4 vs PATP 5 (4 coefs + alpha) rel.diff: -          -> OK   (literally true for the 4 linear coefficients; misleading as a capacity statement (R1-M2))
+      published: identical budget       recomputed: fitted params poly3 4 vs PATP 5 (4 coefs + alpha) rel.diff: -          -> OK   (literally true for the 4 linear coefficients; misleading as a capacity statement)
 [SET-moments] Sec. Manufactured-solution experiments, alpha-optimizer paragraph
       quote: "costs one real scalar, not additional moments of X"
       published: no additional moments  recomputed: Mellin values for j<=4: PATP 35 vs poly3 13 rel.diff: -          -> FLAG   (PATP-MUET consumes 35 fractional moments of X where poly3 consumes 13 integer ones)
@@ -508,7 +508,7 @@ python 3.14.5, numpy 2.4.5, scipy 1.17.1, mpmath 1.3.0, mp.dps = 50
       published: 1.375                  recomputed: 1.375                      rel.diff: 0.0%       -> OK
 [PAR-poly] Sec. Unbounded support and heavy tails, 'Reach on heavy tails'
       quote: "polynomial MUET already fails at j = 2 (it requests E[X^6] = infinity)"
-      published: jS = 6 >= b-1 = 4      recomputed: jS = 6, M_X(7) = inf       rel.diff: -          -> OK   (S = 3 here is the degree-3 polynomial; the reviewer's R1-M1 point on S vs S+1 applies)
+      published: jS = 6 >= b-1 = 4      recomputed: jS = 6, M_X(7) = inf       rel.diff: -          -> OK   (S = 3 here is the degree-3 polynomial; the S vs S+1 distinction of the alpha = 1 remark applies)
     float64 closed form 1.503018583524055, scipy quad 1.503018583521303, rel 1.83e-12
     50-digit closed form 1.50301858352405512384668194986, mp.quad 1.50301858352405512384668194986, rel 3.56e-51
     float64 closed form vs 50-digit closed form: rel 2.03e-16
@@ -518,7 +518,7 @@ python 3.14.5, numpy 2.4.5, scipy 1.17.1, mpmath 1.3.0, mp.dps = 50
 
 ====================================================================================================
 8. Revised tab:rq3 data -- M1..M7, all methods of the P3 design (p3_balanced_benchmark.fit_methods),
-   exact arithmetic, X ~ U[0,1]. Feeds revision/drafts/p3_rq3_table.tex.
+   exact arithmetic, X ~ U[0,1]. Source of the revised tab:rq3.
 ====================================================================================================
 
 === M1 [tab:rq3]  f(x) = 0.6 x^0.5 + 0.4 x^1.5 ===

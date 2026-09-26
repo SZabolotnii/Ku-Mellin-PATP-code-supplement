@@ -1,8 +1,8 @@
 """
-P2 of the PEM revision (PREM-D-26-00488): an engineering example that can fail.
+P2 of the revised analysis: an engineering example that can fail.
 
-Both reviewers ask for an engineering / system example (R1-M5b) with an independent
-validation and comparisons that control for model complexity (R2). Step 0 showed that
+The method needs an engineering / system example with an independent validation and
+comparisons that control for model complexity. Step 0 showed that
 PATP wins at matched capacity only where the response is non-analytic at the edge of the
 input support (sqrt-type behaviour at 0) and loses on analytic responses. This script
 takes one physical instance of that class, chosen from heat-transfer physics and not

@@ -1,5 +1,5 @@
 """
-Mixed-multi-index validity of the PATP-MUET closed form (PEM revision, items R1-M3b/c, R2 scope).
+Mixed-multi-index validity of the PATP-MUET closed form (revised Section "Region of validity").
 
 Every claim of the revised Section "Region of validity" (paper/main.tex) that carries a
 number is checked here, in exact rational arithmetic (fractions / sympy), with a float

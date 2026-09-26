@@ -1,12 +1,11 @@
 """
 P3 Part II -- balanced benchmark over two classes of response surfaces.
 
-PEM revision PREM-D-26-00488. Answers Reviewer 2 ("a broader and more balanced set of
-response types, rather than primarily fractional-power-dominated targets"; "model
-complexity, fitted shape parameter, approximation error, and propagated-moment error for
-both bases") and Reviewer 1, Major 2 (separate surrogate approximation error, propagation
-error relative to direct integration of the fitted surrogate, and input-information cost;
-compare models of matched degrees of freedom).
+Revised analysis. Tests a broader and more balanced set of response types than the
+fractional-power-dominated targets, reports model complexity, fitted shape parameter,
+approximation error and propagated-moment error for each basis, and separates surrogate
+approximation error, propagation error relative to direct integration of the fitted
+surrogate, and input-information cost at matched degrees of freedom.
 
 =====================================================================================
 PRE-REGISTRATION -- written 2026-09-26 before the first run of this script.

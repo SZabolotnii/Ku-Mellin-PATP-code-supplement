@@ -1,6 +1,6 @@
 """
 P3 Part I -- re-verification of every number printed in the manufactured-benchmark part
-of paper/main.tex (PEM revision PREM-D-26-00488).
+of the manuscript (revised analysis).
 
 Scope (paper/main.tex):
   Sec. "Manufactured-solution experiments": the set-up text, the target list, tab:rq3
@@ -273,7 +273,7 @@ def section_setup_and_outcome(fits):
     sp, sk = fits["M1"]["sp"], fits["M1"]["sk"]
     check_claim("SET-budget", loc_setup, "both at S = 3, identical coefficient budget",
                 "identical budget", f"fitted params poly3 {sp.n_params} vs PATP {sk.n_params} (4 coefs + alpha)",
-                True, "literally true for the 4 linear coefficients; misleading as a capacity statement (R1-M2)")
+                True, "literally true for the 4 linear coefficients; misleading as a capacity statement")
     pp, _ = sp.mellin_cost()
     kp, _ = sk.mellin_cost()
     check_claim("SET-moments", "Sec. Manufactured-solution experiments, alpha-optimizer paragraph",
@@ -609,7 +609,7 @@ def section_pareto():
     nu, S, j = 4.0, 3, 2
     check_claim("PAR-poly", loc, "polynomial MUET already fails at j = 2 (it requests E[X^6] = infinity)",
                 "jS = 6 >= b-1 = 4", f"jS = {j * S}, M_X({j * S + 1}) = {hta.mellin_pareto(j * S + 1, nu)}",
-                j * S >= nu, "S = 3 here is the degree-3 polynomial; the reviewer's R1-M1 point on S vs S+1 applies")
+                j * S >= nu, "S = 3 here is the degree-3 polynomial; the S vs S+1 distinction of the alpha = 1 remark applies")
     k0, k = 0.3, {2: 1.0, 3: -0.5, 4: 0.25}  # the coefficients hard-coded in hta.check_pareto
     cf = hta.closed_form(k0, k, 0.25, j, nu)
 
@@ -644,7 +644,7 @@ def section_pareto():
 def section_revised():
     print("\n" + "=" * 100)
     print("8. Revised tab:rq3 data -- M1..M7, all methods of the P3 design (p3_balanced_benchmark.fit_methods),")
-    print("   exact arithmetic, X ~ U[0,1]. Feeds revision/drafts/p3_rq3_table.tex.")
+    print("   exact arithmetic, X ~ U[0,1]. Source of the revised tab:rq3.")
     print("=" * 100)
     rows = {}
     for tag in ("M1", "M4", "M6", "M7", "M2", "M3", "M5"):
