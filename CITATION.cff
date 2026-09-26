@@ -20,11 +20,9 @@ type: software
 authors:
   - family-names: "Zabolotnii"
     given-names: "Serhii"
-    email: "zabolotnii.serhii@csbc.edu.ua"
+    affiliation: "Cherkasy State Business College, Cherkasy, Ukraine"
     orcid: "https://orcid.org/0000-0003-0242-2234"
-version: "2.0.0"
-# Release tag v2.0.0 (and its archived DOI) is pending the author's approval; this is
-# the date the 2.0.0 content was prepared, to be updated when the tag is made.
+version: "2.0.1"
 date-released: "2026-09-26"
 license: MIT
 keywords:
@@ -38,12 +36,3 @@ keywords:
   - GUM
   - formal verification
   - Lean 4
-references:
-  - type: article
-    title: >-
-      Closed-form moment propagation through fractional-power response
-      surfaces via the Mellin transform
-    authors:
-      - family-names: "Zabolotnii"
-        given-names: "Serhii"
-    year: 2026
