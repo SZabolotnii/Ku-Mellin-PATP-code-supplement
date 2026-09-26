@@ -4,14 +4,17 @@ title: "Ku-Mellin-PATP: reproducibility code"
 repository-code: "https://github.com/SZabolotnii/Ku-Mellin-PATP-code-supplement"
 url: "https://github.com/SZabolotnii/Ku-Mellin-PATP-code-supplement"
 abstract: >-
-  Verification and reproducibility code for the paper "Closed-form moment
-  propagation through fractional-power response surfaces via the Mellin
-  transform". Reproduces the CAS cross-checks of the closed-form
-  moment-propagation formula, the region-of-validity table, the heavy-tail
-  admissibility condition on unbounded support, the closed-form
-  Mellin-transform table, the manufactured-solution benchmark (Table 3 /
-  Figure 1), the separable 2-D propagation (Table 4) and the real-data
-  vibration-power case study (Table 5). Includes the Lean 4 / Mathlib
+  Verification and reproducibility code for the revised version of the paper
+  "Closed-form moment propagation through fractional-power response surfaces
+  via the Mellin transform". Reproduces the exact region-of-validity analysis
+  with the mixed-multi-index counterexample, the Mellin transform of the
+  truncated normal, the confluent (log-power) treatment of the degenerate
+  point alpha = 1/2, the 50-digit re-verification of the manufactured-solution
+  benchmark and the separable 2-D propagation, the balanced benchmark over two
+  response classes, the heavy-tail accuracy benchmark, the engineering example
+  (convective cooling under Weibull wind) and the out-of-sample real-data case
+  study on CWRU bearing records 105 and 106 with a moving-block bootstrap. The
+  scripts of the submitted version are kept. Includes the Lean 4 / Mathlib
   formalization of the four supporting lemmas.
 type: software
 authors:
@@ -19,8 +22,10 @@ authors:
     given-names: "Serhii"
     email: "zabolotnii.serhii@csbc.edu.ua"
     orcid: "https://orcid.org/0000-0003-0242-2234"
-version: "1.2.0"
-date-released: "2026-08-02"
+version: "2.0.0"
+# Release tag v2.0.0 (and its archived DOI) is pending the author's approval; this is
+# the date the 2.0.0 content was prepared, to be updated when the tag is made.
+date-released: "2026-09-26"
 license: MIT
 keywords:
   - Mellin transform

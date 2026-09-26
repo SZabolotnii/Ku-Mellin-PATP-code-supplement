@@ -1,0 +1,167 @@
+mixed_kappa_validity.py -- exact validity analysis of the PATP multinomial argument
+sympy 1.14.0, numpy 2.4.5, python 3.14.5
+
+==============================================================================
+V1  Table tab:validity: quadratic structure of p_i(alpha), i = 2..10 (exact)
+==============================================================================
+    i      A_i      B_i    C_i        D_i   vertex  p_i(vertex)  m_i=min_[0,1]  argmin
+    2        1      1/2    1/2       -7/4     -1/4         7/16            1/2       0
+  [OK] i=2: D_i, vertex and vertex value match the submitted table
+  [OK] i=2: float grid min over [0,1] = +0.5000000000 agrees with exact m_i
+    3      8/3        0    1/3      -32/9        0          1/3            1/3       0
+  [OK] i=3: D_i, vertex and vertex value match the submitted table
+  [OK] i=3: float grid min over [0,1] = +0.3333333333 agrees with exact m_i
+    4      9/2     -3/4    1/4     -63/16     1/12         7/32           7/32    1/12
+  [OK] i=4: D_i, vertex and vertex value match the submitted table
+  [OK] i=4: float grid min over [0,1] = +0.2187500000 agrees with exact m_i
+    5     32/5     -8/5    1/5     -64/25      1/8         1/10           1/10     1/8
+  [OK] i=5: D_i, vertex and vertex value match the submitted table
+  [OK] i=5: float grid min over [0,1] = +0.1000000000 agrees with exact m_i
+    6     25/3     -5/2    1/6      25/36     3/20        -1/48          -1/48    3/20
+  [OK] i=6: D_i, vertex and vertex value match the submitted table
+  [OK] i=6: float grid min over [0,1] = -0.0208333333 agrees with exact m_i
+    7     72/7    -24/7    1/7     288/49      1/6         -1/7           -1/7     1/6
+  [OK] i=7: D_i, vertex and vertex value match the submitted table
+  [OK] i=7: float grid min over [0,1] = -0.1428571428 agrees with exact m_i
+    8     49/4    -35/8    1/8     833/64     5/28       -17/64         -17/64    5/28
+  [OK] i=8: D_i, vertex and vertex value match the submitted table
+  [OK] i=8: float grid min over [0,1] = -0.2656250000 agrees with exact m_i
+    9    128/9    -16/3    1/9    1792/81     3/16        -7/18          -7/18    3/16
+  [OK] i=9: D_i, vertex and vertex value match the submitted table
+  [OK] i=9: float grid min over [0,1] = -0.3888888889 agrees with exact m_i
+   10     81/5   -63/10   1/10   3321/100     7/36       -41/80         -41/80    7/36
+  [OK] i=10: D_i, vertex and vertex value match the submitted table
+  [OK] i=10: float grid min over [0,1] = -0.5125000000 agrees with exact m_i
+
+  NOTE: the submitted column 'min p_i' is the vertex value. For i = 2 the vertex -1/4 lies
+  outside [0,1]; there m_2 = min_[0,1] p_2 = p_2(0) = 1/2. For i >= 3 the vertex lies in [0,1]
+  and m_i equals the vertex value.
+  [OK] m_2 = 1/2 attained at alpha = 0
+  [OK] m_i = vertex value for i = 3..10
+  [OK] m_i > 0 for i = 2..5 and m_i < 0 for i = 6..10
+  min over i<=5 of m_i = 1/10 (i = 5)
+
+==============================================================================
+V2  Per-index multiplicity columns: kappa_i m_i + 1 > 0, kappa_i = 1..5 (strip Re s > 0)
+==============================================================================
+  i= 2: kappa_i m_i + 1 for kappa_i=1..5:      3/2        2      5/2        3      7/2   pass pattern yyyyy
+  [OK] i=2: pass pattern equals the submitted table (yyyyy)
+  i= 3: kappa_i m_i + 1 for kappa_i=1..5:      4/3      5/3        2      7/3      8/3   pass pattern yyyyy
+  [OK] i=3: pass pattern equals the submitted table (yyyyy)
+  i= 4: kappa_i m_i + 1 for kappa_i=1..5:    39/32    23/16    53/32     15/8    67/32   pass pattern yyyyy
+  [OK] i=4: pass pattern equals the submitted table (yyyyy)
+  i= 5: kappa_i m_i + 1 for kappa_i=1..5:    11/10      6/5    13/10      7/5      3/2   pass pattern yyyyy
+  [OK] i=5: pass pattern equals the submitted table (yyyyy)
+  i= 6: kappa_i m_i + 1 for kappa_i=1..5:    47/48    23/24    15/16    11/12    43/48   pass pattern yyyyy
+  [OK] i=6: pass pattern equals the submitted table (yyyyy)
+  i= 7: kappa_i m_i + 1 for kappa_i=1..5:      6/7      5/7      4/7      3/7      2/7   pass pattern yyyyy
+  [OK] i=7: pass pattern equals the submitted table (yyyyy)
+  i= 8: kappa_i m_i + 1 for kappa_i=1..5:    47/64    15/32    13/64    -1/16   -21/64   pass pattern yyynn
+  [OK] i=8: pass pattern equals the submitted table (yyynn)
+  i= 9: kappa_i m_i + 1 for kappa_i=1..5:    11/18      2/9     -1/6     -5/9   -17/18   pass pattern yynnn
+  [OK] i=9: pass pattern equals the submitted table (yynnn)
+  i=10: kappa_i m_i + 1 for kappa_i=1..5:    39/80    -1/40   -43/80   -21/20   -25/16   pass pattern ynnnn
+  [OK] i=10: pass pattern equals the submitted table (ynnnn)
+  For a single index these columns are exact: min_alpha kappa_i p_i(alpha) = kappa_i m_i.
+
+==============================================================================
+V4  Counterexample: kappa_10 = 1, kappa_9 = 2 (both single-index rows pass)
+==============================================================================
+  row i=10, kappa=1: kappa m_10 + 1 = 39/80 > 0 -> passes
+  row i=9,  kappa=2: kappa m_9  + 1 = 2/9 > 0 -> passes
+  [OK] both single-index rows pass
+  sum of per-index minima: 1*(-41/80) + 2*(-7/18) = -929/720 = -1.2902777778
+  [OK] sum of per-index minima = -929/720 < -1
+  q(alpha) = p_10(alpha) + 2 p_9(alpha) = 29/90 + (-509/30) alpha + (2009/45) alpha^2
+  exact min over [0,1] of q: -1865641/1446480 = -1.2897800177 at alpha = 1527/8036 = 0.1900199104
+  per-index minimisers: alpha_9* = 3/16 = 0.187500, alpha_10* = 7/36 = 0.194444
+  gap (exact min) - (sum of minima) = 1/2009 = +4.978e-04  (>= 0, as it must be)
+  [OK] exact min >= sum of minima (V3 direction)
+  [OK] exact min < -1: the mixed argument leaves Re s > 0
+  lowest Mellin argument q(alpha)+1 = -419161/1446480 = -0.2897800177
+  q(alpha) + 1 = 0 at alpha = 1527/8036 - sqrt(419161)/8036, sqrt(419161)/8036 + 1527/8036
+                         ~ 0.1094541509, 0.2705856699
+  so the argument is <= 0 (outside the strip) on [0.1095, 0.2706] of width 0.1611
+  [OK] both roots lie inside [0,1]
+  [OK] float grid (200001 pts) min of q = -1.2897800177 agrees with the exact value
+  uniform input: E[X^c] = int_0^1 x^c dx is finite iff c > -1; here c = -1.289780, so the
+  term kappa = (kappa_9, kappa_10) = (2, 1) of the j >= 3 moment diverges at alpha near 0.19.
+    int_eps^1 x^c dx at eps = 1e-02: 9.655753e+00
+    int_eps^1 x^c dx at eps = 1e-04: 4.632873e+01
+    int_eps^1 x^c dx at eps = 1e-06: 1.856143e+02
+    int_eps^1 x^c dx at eps = 1e-08: 7.146272e+02
+
+==============================================================================
+V5  Scan: mixed pairs i1 < i2 in {2..10}, kappa_1, kappa_2 >= 1, kappa_1 + kappa_2 <= 5
+==============================================================================
+  per-index = both single-index ceilings pass (kappa_1 m_i1 + 1 > 0 and kappa_2 m_i2 + 1 > 0)
+  suff      = kappa_1 m_i1 + kappa_2 m_i2 + 1 > 0             (sufficient, uniform in alpha)
+  exact     = min_[0,1] (kappa_1 p_i1 + kappa_2 p_i2) + 1 > 0 (exact, uniform in alpha)
+  tuples scanned: 360  (36 pairs x 10 multiplicity splits)
+  [OK] V3: min of the mixed sum >= sum of minima on all 360 tuples (violations: 0)
+  [OK] sufficient condition never passes where the exact one fails (cases: 0)
+  [OK] i1, i2 <= 5: min of the mixed sum >= |kappa|/10 on every tuple
+  largest gap (exact min - sum of minima): 155/404 = 3.8366e-01 at (i1,i2,k1,k2) = (2, 10, 4, 1)
+
+  per-index ceilings pass BUT exact mixed condition fails: 11 tuples
+     i1  i2  k1  k2  sum of minima    exact min  at alpha
+      7   8   2   3      -1.082589    -1.080720   0.17430
+      7   9   2   2      -1.063492    -1.058311   0.17876
+      7   9   3   2      -1.206349    -1.199925   0.17666
+      7  10   4   1      -1.083929    -1.074960   0.17451
+      8   9   1   2      -1.043403    -1.042720   0.18481
+      8   9   2   2      -1.309028    -1.307978   0.18337
+      8   9   3   1      -1.185764    -1.184946   0.18106
+      8   9   3   2      -1.574653    -1.573375   0.18247
+      8  10   2   1      -1.043750    -1.041293   0.18489
+      8  10   3   1      -1.309375    -1.306542   0.18343
+      9  10   2   1      -1.290278    -1.289780   0.19002
+  [OK] the (i1,i2,k1,k2) = (9,10,2,1) counterexample is in this list
+
+  sufficient condition fails BUT exact condition passes (conservatism): 2 tuples
+      2   9   1   4      -1.055556    -0.929956   0.17994
+      2  10   1   3      -1.037500    -0.906452   0.18548
+
+==============================================================================
+V6  Feasibility check at a fixed alpha*: extreme arguments over |kappa| <= j (brute force)
+==============================================================================
+  [OK] min_{|kappa|<=j} sum kappa_i p_i(a) = j*min(0, min_i p_i(a)) and max = j*max_i p_i(a) on 225 (I, alpha, j) cases
+  [OK] max_i p_i(alpha) > 0 always (p_2 > 0), so the upper extreme is j P_S(alpha)
+  So the practical check is two scalar inequalities:
+    1 + j*min(0, min_i p_i(alpha*)) > a   and   1 + j*P_S(alpha*) < b.
+  e.g. S=3, alpha*=0.451: p_2,p_3,p_4 = 0.9289, 0.8757, 0.8271; lower edge 1 (all p_i > 0), P_3 = 0.9289
+  e.g. S=3, alpha*=0.520: p_2,p_3,p_4 = 1.0304, 1.0544, 1.0768; lower edge 1 (all p_i > 0), P_3 = 1.0768
+
+==============================================================================
+V7  Exponent facts for the alpha = 1 remark and the heavy-tail paragraph
+==============================================================================
+  [OK] p_i(1) = i for i = 2..10
+  [OK] p_i(1/2) = 1 for i = 2..10
+  [OK] i=2: p_i(alpha) = 1 only at alpha in {-1/1, 1/2} (so in [0,1] only at 1/2)
+  [OK] i=3: p_i(alpha) = 1 only at alpha in {-1/2, 1/2} (so in [0,1] only at 1/2)
+  [OK] i=4: p_i(alpha) = 1 only at alpha in {-1/3, 1/2} (so in [0,1] only at 1/2)
+  [OK] i=5: p_i(alpha) = 1 only at alpha in {-1/4, 1/2} (so in [0,1] only at 1/2)
+  [OK] i=6: p_i(alpha) = 1 only at alpha in {-1/5, 1/2} (so in [0,1] only at 1/2)
+  [OK] i=7: p_i(alpha) = 1 only at alpha in {-1/6, 1/2} (so in [0,1] only at 1/2)
+  [OK] i=8: p_i(alpha) = 1 only at alpha in {-1/7, 1/2} (so in [0,1] only at 1/2)
+  [OK] i=9: p_i(alpha) = 1 only at alpha in {-1/8, 1/2} (so in [0,1] only at 1/2)
+  [OK] i=10: p_i(alpha) = 1 only at alpha in {-1/9, 1/2} (so in [0,1] only at 1/2)
+  At alpha = 1 the PATP span on X >= 0 is {1, x^2, ..., x^(S+1)}; for S = 3: exponents [2, 3, 4], versus {1, x, x^2, x^3} for degree-3 MUET.
+  [OK] p_2(alpha) = 1/2 + alpha/2 + alpha^2 (so p_2 >= 1/2 on [0,1])
+  [OK] S=1: 1/2 <= P_S(alpha) < 1 on the grid over [0, 1/2)  (min 0.500000, max 0.9999925000)
+  [OK] S=2: 1/2 <= P_S(alpha) < 1 on the grid over [0, 1/2)  (min 0.500000, max 0.9999925000)
+  [OK] S=3: 1/2 <= P_S(alpha) < 1 on the grid over [0, 1/2)  (min 0.500000, max 0.9999925000)
+  [OK] S=4: 1/2 <= P_S(alpha) < 1 on the grid over [0, 1/2)  (min 0.500000, max 0.9999925000)
+  [OK] S=5: 1/2 <= P_S(alpha) < 1 on the grid over [0, 1/2)  (min 0.500000, max 0.9999925000)
+  [OK] S=6: 1/2 <= P_S(alpha) < 1 on the grid over [0, 1/2)  (min 0.500000, max 0.9999925000)
+  [OK] S=7: 1/2 <= P_S(alpha) < 1 on the grid over [0, 1/2)  (min 0.500000, max 0.9999925000)
+  [OK] S=8: 1/2 <= P_S(alpha) < 1 on the grid over [0, 1/2)  (min 0.500000, max 0.9999925000)
+  [OK] S=9: 1/2 <= P_S(alpha) < 1 on the grid over [0, 1/2)  (min 0.500000, max 0.9999925000)
+  P_3(1/4) = max(p_2, p_3, p_4)(1/4) = max(11/16, 1/2, 11/32) = 11/16 = 0.6875
+  [OK] P_3(1/4) = 11/16 = 0.6875
+  widening factor S / P_S(alpha) at S = 3: alpha=0 -> 6.0; alpha=1/4 -> 4.3636; alpha -> 1/2 -> 3
+
+==============================================================================
+SUMMARY
+==============================================================================
+  ALL CHECKS PASSED.

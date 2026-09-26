@@ -1,0 +1,283 @@
+P2 engineering example: Churchill-Bernstein convective cooling, Weibull wind
+air at T_f = 323.15 K: mu = 1.95346e-05 Pa s, rho = 1.09233 kg/m^3, nu = 1.78834e-05 m^2/s, k_air = 0.02802 W/(m K), Pr = 0.7022
+D = 0.02814 m, dT = 50.0 K, pi k_air dT = 4.4007 W/m, CB prefactor 0.62 Pr^1/3 / [1+(0.4/Pr)^2/3]^1/4 = 0.48352
+MACHINERY CHECKS
+  d^1M_X/ds^1 at s = 2.37: recursion -0.182119089990456  mpmath.diff -0.182119089990456  rel diff 1.8e-51
+  d^3M_X/ds^3 at s = 2.37: recursion -0.389849212835938  mpmath.diff -0.389849212835938  rel diff 1.7e-51
+  d^6M_X/ds^6 at s = 2.37: recursion 2.77279965998489  mpmath.diff 2.77279965998489  rel diff 0.0e+00
+  E[X^0.7 ln^2 X]: closed form 0.762808128986249  quadrature 0.762808128986249
+  Golub-Welsch GaussV: max rel exactness error on moments 0..2n-1 (n in (6, 8, 12, 16, 24), k in (1.6, 2.0, 2.4, 2.8)) = 4.0e-139
+  Golub-Welsch GaussT: max rel exactness error on moments 0..2n-1 (n in (6, 8, 12, 16, 24), k in (1.6, 2.0, 2.4, 2.8)) = 4.1e-138
+
+QUESTION 1 -- baseline climate k = 2.0, lam = 6.0 m/s, v_hi = 22.3015 m/s (Re at v_hi = 35092)
+truth: E[q_c] = 206.116151759 W/m, SD[q_c] = 62.4217817825 W/m, E[q_c^j] j=1..4 = ['206.116151759', '46380.3468569', '11179134.0691', '2850783758.86']
+truth cross-check (V-space vs u-space quadrature): max rel diff = 0.0e+00
+q_c(0) = 1.3202 W/m, q_c(v_hi) = 484.475 W/m
+
+--- n = 6 evaluations of q_c ---
+method      p   shape   cond(A)   nodeRMS    valRMS    valMax mellin     e_j=1     e_j=2     e_j=3     e_j=4       geo      e_sd     prop
+poly3       4       -  1.09e+02  1.16e+01  1.11e+01  2.70e+01     13  7.93e-03  1.99e-02  6.16e-02  1.07e-01  3.20e-02  1.87e-01  3.1e-16
+poly4       5       -  6.32e+02  6.01e+00  8.51e+00  2.46e+01     17  1.74e-02  4.40e-02  6.46e-02  7.49e-02  4.38e-02  6.82e-02  7.8e-16
+PATP-opt    5  0.3730  1.37e+03  1.32e-03  6.59e-02  6.02e-01     35  1.55e-06  3.31e-05  5.23e-05  5.33e-05  1.95e-05  2.14e-04  6.3e-16
+sqrt3       4       -  1.14e+02  3.43e-02  5.39e-02  1.78e-01     13  1.36e-04  3.27e-04  4.94e-04  6.11e-04  3.40e-04  4.66e-04  6.7e-16
+conf        5  0.6976  1.17e+01  1.64e-03  8.21e-02  7.50e-01     25  1.98e-06  4.11e-05  6.51e-05  6.63e-05  2.44e-05  2.66e-04  5.0e-16
+polyI       6       -  1.66e+00  9.59e-14  6.59e+00  2.35e+01     21  1.50e-02  2.95e-02  3.47e-02  3.06e-02  2.62e-02  1.09e-02  6.4e-16
+GL          6       -         -         -         -         -      -  1.07e-02  6.97e-03  2.18e-03  2.66e-04  2.56e-03  7.86e-02        -
+GaussV      6       -         -         -         -         -      -  1.73e-04  1.90e-07  1.11e-05  2.60e-07  3.12e-06  1.88e-03GW 4e-150
+GaussT      6       -         -         -         -         -      -  2.13e-09  8.97e-10  4.09e-10  2.24e-10  6.47e-10  2.86e-08GW 2e-149
+
+--- n = 8 evaluations of q_c ---
+method      p   shape   cond(A)   nodeRMS    valRMS    valMax mellin     e_j=1     e_j=2     e_j=3     e_j=4       geo      e_sd     prop
+poly3       4       -  1.08e+02  1.18e+01  9.40e+00  2.26e+01     13  9.36e-03  1.21e-02  4.63e-02  8.45e-02  2.58e-02  1.60e-01  6.4e-16
+poly4       5       -  6.25e+02  8.28e+00  6.86e+00  1.99e+01     17  1.13e-02  3.20e-02  4.91e-02  5.85e-02  3.19e-02  6.40e-02  3.2e-16
+PATP-opt    5  0.3702  1.20e+03  7.19e-03  4.11e-02  4.57e-01     35  5.72e-06  3.91e-06  3.33e-05  7.11e-05  1.52e-05  8.56e-05  4.7e-16
+sqrt3       4       -  1.14e+02  4.92e-02  5.31e-02  1.47e-01     13  1.87e-04  3.89e-04  5.43e-04  6.33e-04  3.98e-04  2.75e-04  8.4e-16
+conf        5  0.6907  1.07e+01  8.96e-03  5.17e-02  5.77e-01     25  7.10e-06  4.86e-06  4.15e-05  8.86e-05  1.89e-05  1.06e-04  1.0e-15
+polyI       8       -  1.62e+00  2.49e-13  3.77e+00  1.69e+01     29  8.42e-04  1.84e-03  5.97e-03  8.83e-03  3.01e-03  2.03e-02  3.4e-16
+GL          8       -         -         -         -         -      -  7.43e-03  4.50e-03  1.32e-03  1.27e-04  1.54e-03  5.61e-02        -
+GaussV      8       -         -         -         -         -      -  6.60e-05  3.33e-07  2.84e-06  1.85e-08  1.04e-06  7.18e-04GW 4e-149
+GaussT      8       -         -         -         -         -      -  1.60e-10  4.14e-11  1.15e-11  3.78e-12  2.32e-11  1.99e-09GW 2e-148
+
+--- n = 12 evaluations of q_c ---
+method      p   shape   cond(A)   nodeRMS    valRMS    valMax mellin     e_j=1     e_j=2     e_j=3     e_j=4       geo      e_sd     prop
+poly3       4       -  1.08e+02  1.08e+01  8.02e+00  2.51e+01     13  9.20e-03  7.83e-03  3.65e-02  6.91e-02  2.06e-02  1.37e-01  6.3e-16
+poly4       5       -  6.21e+02  7.90e+00  5.66e+00  1.72e+01     17  8.44e-03  2.52e-02  3.96e-02  4.79e-02  2.52e-02  5.60e-02  9.6e-16
+PATP-opt    5  0.3676  1.17e+03  1.86e-02  2.94e-02  3.44e-01     35  3.11e-05  9.38e-05  1.63e-04  2.21e-04  1.01e-04  2.19e-04  5.0e-16
+sqrt3       4       -  1.20e+02  5.56e-02  5.05e-02  1.23e-01     13  1.91e-04  3.84e-04  5.26e-04  6.01e-04  3.91e-04  2.02e-04  3.1e-16
+conf        5  0.6840  1.03e+01  2.33e-02  3.72e-02  4.40e-01     25  3.91e-05  1.18e-04  2.04e-04  2.77e-04  1.27e-04  2.74e-04  6.7e-16
+polyI      12       -  1.57e+00  8.32e-13  1.73e+00  1.08e+01     45  7.72e-05  1.56e-04  1.24e-02  8.45e+01  1.06e-02  8.89e-05  4.5e-15
+GL         12       -         -         -         -         -      -  4.46e-03  2.44e-03  6.52e-04  4.51e-05  7.52e-04  3.48e-02        -
+GaussV     12       -         -         -         -         -      -  1.64e-05  1.35e-07  3.97e-07  2.68e-09  2.20e-07  1.78e-04GW 5e-147
+GaussT     12       -         -         -         -         -      -  3.58e-12  4.58e-13  6.36e-14  1.06e-14  1.82e-13  4.17e-11GW 3e-146
+
+--- n = 16 evaluations of q_c ---
+method      p   shape   cond(A)   nodeRMS    valRMS    valMax mellin     e_j=1     e_j=2     e_j=3     e_j=4       geo      e_sd     prop
+poly3       4       -  1.08e+02  1.01e+01  7.42e+00  2.80e+01     13  8.91e-03  6.27e-03  3.25e-02  6.26e-02  1.84e-02  1.26e-01  9.4e-16
+poly4       5       -  6.21e+02  7.38e+00  5.15e+00  2.00e+01     17  7.44e-03  2.26e-02  3.58e-02  4.35e-02  2.26e-02  5.18e-02  4.8e-16
+PATP-opt    5  0.3663  1.20e+03  2.65e-02  2.93e-02  2.92e-01     35  5.84e-05  1.46e-04  2.29e-04  2.89e-04  1.54e-04  2.33e-04  1.5e-15
+sqrt3       4       -  1.25e+02  5.53e-02  4.78e-02  1.12e-01     13  1.81e-04  3.64e-04  4.99e-04  5.72e-04  3.70e-04  1.96e-04  8.4e-16
+conf        5  0.6808  1.03e+01  3.34e-02  3.71e-02  3.76e-01     25  7.36e-05  1.84e-04  2.88e-04  3.63e-04  1.94e-04  2.92e-04  5.0e-16
+polyI      16       -  1.55e+00  2.14e-13  1.01e+00  7.89e+00     61  1.68e-05  4.97e-02  3.68e+04  4.72e+11  3.47e+02  2.61e-01  8.2e-15
+GL         16       -         -         -         -         -      -  3.10e-03  1.58e-03  3.96e-04  2.14e-05  4.51e-04  2.48e-02        -
+GaussV     16       -         -         -         -         -      -  5.96e-06  5.69e-08  9.56e-08  1.15e-09  7.81e-08  6.46e-05GW 4e-145
+GaussT     16       -         -         -         -         -      -  2.18e-13  1.66e-14  1.48e-15  8.10e-17  4.56e-15  2.48e-12GW 1e-143
+
+--- n = 24 evaluations of q_c ---
+method      p   shape   cond(A)   nodeRMS    valRMS    valMax mellin     e_j=1     e_j=2     e_j=3     e_j=4       geo      e_sd     prop
+poly3       4       -  1.09e+02  9.34e+00  6.86e+00  3.07e+01     13  8.59e-03  4.88e-03  2.88e-02  5.65e-02  1.62e-02  1.16e-01  3.2e-16
+poly4       5       -  6.21e+02  6.75e+00  4.68e+00  2.27e+01     17  6.56e-03  2.02e-02  3.23e-02  3.94e-02  2.03e-02  4.76e-02  6.2e-16
+PATP-opt    5  0.3653  1.27e+03  3.54e-02  3.17e-02  2.42e-01     35  8.59e-05  1.94e-04  2.85e-04  3.42e-04  2.01e-04  2.19e-04  8.4e-16
+sqrt3       4       -  1.31e+02  5.29e-02  4.44e-02  1.27e-01     13  1.65e-04  3.36e-04  4.64e-04  5.35e-04  3.42e-04  2.03e-04  1.6e-16
+conf        5  0.6782  1.07e+01  4.49e-02  4.01e-02  3.14e-01     25  1.09e-04  2.45e-04  3.59e-04  4.30e-04  2.53e-04  2.73e-04  5.0e-16
+polyI      24       -  1.52e+00  4.38e-13  4.66e-01  5.08e+00     93  6.70e-03  3.26e+07  1.36e+20  4.45e+34  1.07e+15  1.97e+04  1.1e-14
+GL         24       -         -         -         -         -      -  1.86e-03  8.57e-04  1.96e-04  7.35e-06  2.19e-04  1.53e-02        -
+GaussV     24       -         -         -         -         -      -  1.40e-06  1.48e-08  1.25e-08  2.03e-10  1.51e-08  1.51e-05GW 9e-140
+GaussT     24       -         -         -         -         -      -  3.82e-15  9.92e-17  1.48e-16  2.54e-16  3.45e-16  4.22e-14GW 2e-138
+
+QUESTION 2 -- 20 climates, union range v_hi^U = 41.2876 m/s (Re = 64967)
+truth cross-check over 20 climates: max rel diff V-space vs u-space = 0.0e+00
+
+(a) equal per-climate n: surrogate with N = n nodes in total, quadrature n per climate (20 n total)
+   n    method  g evals   shape  worst geo  median geo  worst climate
+   6     poly3        6       -   2.93e-01    1.17e-01  k=2.8, lam=4.0
+   6     poly4        6       -   1.06e-01    4.06e-02  k=2.8, lam=4.0
+   6  PATP-opt        6  0.3782   2.63e-04    9.19e-05  k=2.0, lam=4.0
+   6     sqrt3        6       -   8.44e-04    3.46e-04  k=2.8, lam=4.0
+   6      conf        6  0.7107   3.24e-04    1.14e-04  k=2.0, lam=4.0
+   6        GL      120       -   6.56e-03    3.44e-03  k=2.8, lam=4.0
+   6    GaussV      120       -   1.73e-05    2.13e-06  k=1.6, lam=8.0
+   6    GaussT      120       -   3.55e-09    3.62e-10  k=1.6, lam=8.0
+   8     poly3        8       -   2.63e-01    1.12e-01  k=2.8, lam=4.0
+   8     poly4        8       -   1.13e-01    2.67e-02  k=2.8, lam=4.0
+   8  PATP-opt        8  0.3756   3.36e-04    1.41e-04  k=2.8, lam=4.0
+   8     sqrt3        8       -   8.95e-04    5.03e-04  k=2.8, lam=8.0
+   8      conf        8  0.7042   4.19e-04    1.76e-04  k=2.8, lam=4.0
+   8        GL      160       -   4.31e-03    2.17e-03  k=2.8, lam=4.0
+   8    GaussV      160       -   5.06e-06    5.76e-07  k=1.6, lam=6.0
+   8    GaussT      160       -   1.78e-10    1.20e-11  k=1.6, lam=8.0
+  12     poly3       12       -   2.32e-01    1.02e-01  k=2.8, lam=4.0
+  12     poly4       12       -   1.05e-01    2.30e-02  k=2.8, lam=4.0
+  12  PATP-opt       12  0.3730   5.43e-04    7.57e-05  k=2.8, lam=4.0
+  12     sqrt3       12       -   9.18e-04    5.60e-04  k=2.8, lam=8.0
+  12      conf       12  0.6977   6.78e-04    9.51e-05  k=2.8, lam=4.0
+  12        GL      240       -   2.39e-03    1.13e-03  k=2.8, lam=4.0
+  12    GaussV      240       -   1.74e-06    9.53e-08  k=1.6, lam=4.0
+  12    GaussT      240       -   2.36e-12    8.72e-14  k=1.6, lam=8.0
+  16     poly3       16       -   2.16e-01    9.70e-02  k=2.8, lam=4.0
+  16     poly4       16       -   1.00e-01    2.06e-02  k=2.8, lam=4.0
+  16  PATP-opt       16  0.3717   5.09e-04    9.97e-05  k=2.8, lam=4.0
+  16     sqrt3       16       -   8.66e-04    5.28e-04  k=2.8, lam=8.0
+  16      conf       16  0.6947   6.37e-04    1.24e-04  k=2.8, lam=4.0
+  16        GL      320       -   1.57e-03    7.15e-04  k=2.8, lam=4.0
+  16    GaussV      320       -   7.28e-07    3.93e-08  k=1.6, lam=4.0
+  16    GaussT      320       -   1.01e-13    2.60e-15  k=1.6, lam=8.0
+  24     poly3       24       -   2.01e-01    9.15e-02  k=2.8, lam=4.0
+  24     poly4       24       -   9.48e-02    1.83e-02  k=2.8, lam=4.0
+  24  PATP-opt       24  0.3707   4.11e-04    1.67e-04  k=2.8, lam=4.0
+  24     sqrt3       24       -   7.84e-04    4.72e-04  k=2.8, lam=8.0
+  24      conf       24  0.6922   5.15e-04    2.08e-04  k=2.8, lam=4.0
+  24        GL      480       -   8.70e-04    3.75e-04  k=2.8, lam=4.0
+  24    GaussV      480       -   1.93e-07    7.55e-09  k=1.6, lam=4.0
+  24    GaussT      480       -   3.23e-15    2.10e-16  k=1.6, lam=4.0
+
+(b) equal TOTAL evaluations N_tot = 20 m: surrogate with N_tot nodes, quadrature m per climate
+   m  N_tot    method   shape  worst geo  median geo  worst climate
+   1     20     poly3       -   2.07e-01    9.38e-02  k=2.8, lam=4.0
+   1     20     poly4       -   9.70e-02    1.92e-02  k=2.8, lam=4.0
+   1     20  PATP-opt  0.3711   4.56e-04    1.23e-04  k=2.8, lam=4.0
+   1     20     sqrt3       -   8.20e-04    4.97e-04  k=2.8, lam=8.0
+   1     20      conf  0.6931   5.71e-04    1.52e-04  k=2.8, lam=4.0
+   1     20        GL       -   9.81e-02    7.98e-02  k=2.8, lam=4.0
+   1     20    GaussV       -   1.09e-01    6.15e-02  k=1.6, lam=8.0
+   1     20    GaussT       -   1.39e-01    7.96e-02  k=1.6, lam=8.0
+   2     40     poly3       -   1.89e-01    8.68e-02  k=2.8, lam=4.0
+   2     40     poly4       -   9.02e-02    1.75e-02  k=2.8, lam=4.0
+   2     40  PATP-opt  0.3705   3.85e-04    1.82e-04  k=2.8, lam=8.0
+   2     40     sqrt3       -   7.02e-04    3.99e-04  k=2.8, lam=8.0
+   2     40      conf  0.6917   4.78e-04    2.24e-04  k=2.8, lam=8.0
+   2     40        GL       -   3.33e-02    2.09e-02  k=2.8, lam=4.0
+   2     40    GaussV       -   1.95e-03    7.96e-04  k=1.6, lam=6.0
+   2     40    GaussT       -   1.85e-03    5.77e-04  k=1.6, lam=8.0
+   3     60     poly3       -   1.83e-01    8.45e-02  k=2.8, lam=4.0
+   3     60     poly4       -   8.80e-02    1.63e-02  k=2.8, lam=4.0
+   3     60  PATP-opt  0.3709   3.84e-04    1.91e-04  k=2.8, lam=8.0
+   3     60     sqrt3       -   6.57e-04    3.56e-04  k=2.8, lam=8.0
+   3     60      conf  0.6928   4.74e-04    2.34e-04  k=2.8, lam=8.0
+   3     60        GL       -   1.82e-02    1.06e-02  k=2.8, lam=4.0
+   3     60    GaussV       -   3.88e-04    1.01e-04  k=1.6, lam=8.0
+   3     60    GaussT       -   1.52e-05    2.64e-06  k=1.6, lam=8.0
+   4     80     poly3       -   1.80e-01    8.33e-02  k=2.8, lam=4.0
+   4     80     poly4       -   8.68e-02    1.57e-02  k=2.8, lam=4.0
+   4     80  PATP-opt  0.3714   3.66e-04    1.80e-04  k=2.8, lam=8.0
+   4     80     sqrt3       -   6.35e-04    3.33e-04  k=2.8, lam=8.0
+   4     80      conf  0.6940   4.49e-04    2.18e-04  k=2.8, lam=8.0
+   4     80        GL       -   1.19e-02    6.64e-03  k=2.8, lam=4.0
+   4     80    GaussV       -   1.13e-04    1.84e-05  k=1.6, lam=8.0
+   4     80    GaussT       -   3.22e-07    4.83e-08  k=1.6, lam=8.0
+   6    120     poly3       -   1.77e-01    8.21e-02  k=2.8, lam=4.0
+   6    120     poly4       -   8.57e-02    1.51e-02  k=2.8, lam=4.0
+   6    120  PATP-opt  0.3722   3.31e-04    1.52e-04  k=2.8, lam=8.0
+   6    120     sqrt3       -   6.11e-04    3.09e-04  k=2.8, lam=8.0
+   6    120      conf  0.6959   4.03e-04    1.81e-04  k=2.8, lam=8.0
+   6    120        GL       -   6.56e-03    3.44e-03  k=2.8, lam=4.0
+   6    120    GaussV       -   1.73e-05    2.13e-06  k=1.6, lam=8.0
+   6    120    GaussT       -   3.55e-09    3.62e-10  k=1.6, lam=8.0
+   8    160     poly3       -   1.75e-01    8.16e-02  k=2.8, lam=4.0
+   8    160     poly4       -   8.51e-02    1.48e-02  k=2.8, lam=4.0
+   8    160  PATP-opt  0.3727   3.05e-04    1.46e-04  k=2.8, lam=8.0
+   8    160     sqrt3       -   6.00e-04    3.01e-04  k=2.8, lam=8.0
+   8    160      conf  0.6972   3.71e-04    1.84e-04  k=2.8, lam=8.0
+   8    160        GL       -   4.31e-03    2.17e-03  k=2.8, lam=4.0
+   8    160    GaussV       -   5.06e-06    5.76e-07  k=1.6, lam=6.0
+   8    160    GaussT       -   1.78e-10    1.20e-11  k=1.6, lam=8.0
+  12    240     poly3       -   1.74e-01    8.10e-02  k=2.8, lam=4.0
+  12    240     poly4       -   8.46e-02    1.45e-02  k=2.8, lam=4.0
+  12    240  PATP-opt  0.3732   2.98e-04    1.42e-04  k=2.8, lam=4.0
+  12    240     sqrt3       -   5.88e-04    3.02e-04  k=2.8, lam=8.0
+  12    240      conf  0.6986   3.76e-04    1.73e-04  k=2.8, lam=4.0
+  12    240        GL       -   2.39e-03    1.13e-03  k=2.8, lam=4.0
+  12    240    GaussV       -   1.74e-06    9.53e-08  k=1.6, lam=4.0
+  12    240    GaussT       -   2.36e-12    8.72e-14  k=1.6, lam=8.0
+  16    320     poly3       -   1.73e-01    8.07e-02  k=2.8, lam=4.0
+  16    320     poly4       -   8.43e-02    1.43e-02  k=2.8, lam=4.0
+  16    320  PATP-opt  0.3736   3.03e-04    1.35e-04  k=2.8, lam=4.0
+  16    320     sqrt3       -   5.82e-04    3.02e-04  k=2.8, lam=8.0
+  16    320      conf  0.6994   3.81e-04    1.64e-04  k=2.8, lam=4.0
+  16    320        GL       -   1.57e-03    7.15e-04  k=2.8, lam=4.0
+  16    320    GaussV       -   7.28e-07    3.93e-08  k=1.6, lam=4.0
+  16    320    GaussT       -   1.01e-13    2.60e-15  k=1.6, lam=8.0
+  24    480     poly3       -   1.72e-01    8.04e-02  k=2.8, lam=4.0
+  24    480     poly4       -   8.40e-02    1.42e-02  k=2.8, lam=4.0
+  24    480  PATP-opt  0.3739   3.08e-04    1.27e-04  k=2.8, lam=4.0
+  24    480     sqrt3       -   5.76e-04    2.99e-04  k=2.8, lam=8.0
+  24    480      conf  0.7002   3.86e-04    1.53e-04  k=2.8, lam=4.0
+  24    480        GL       -   8.70e-04    3.75e-04  k=2.8, lam=4.0
+  24    480    GaussV       -   1.93e-07    7.55e-09  k=1.6, lam=4.0
+  24    480    GaussT       -   3.23e-15    2.10e-16  k=1.6, lam=4.0
+
+per-climate geo at equal total evaluations, PATP-opt (N_tot = 20 m nodes) / GL (m per climate)
+    k  lam                 m=6                 m=8                m=12                m=16                m=24
+  1.6  4.0   1.3e-04   1.8e-03   1.3e-04   1.1e-03   1.3e-04   5.4e-04   1.3e-04   3.3e-04   1.2e-04   1.6e-04
+  1.6  5.0   6.4e-05   1.7e-03   8.1e-05   1.0e-03   9.5e-05   5.1e-04   9.8e-05   3.1e-04   9.8e-05   1.5e-04
+  1.6  6.0   1.3e-04   1.6e-03   1.3e-04   9.8e-04   1.2e-04   4.9e-04   1.1e-04   3.0e-04   1.1e-04   1.5e-04
+  1.6  7.0   1.6e-04   1.5e-03   1.4e-04   9.3e-04   1.2e-04   4.7e-04   1.1e-04   2.9e-04   9.0e-05   1.4e-04
+  1.6  8.0   1.9e-04   1.4e-03   1.7e-04   8.8e-04   1.5e-04   4.5e-04   1.4e-04   2.8e-04   1.3e-04   1.4e-04
+  2.0  4.0   1.3e-04   2.4e-03   1.5e-04   1.5e-03   1.8e-04   7.0e-04   1.9e-04   4.2e-04   2.0e-04   2.0e-04
+  2.0  5.0   9.7e-05   2.5e-03   1.0e-04   1.5e-03   9.7e-05   7.3e-04   9.2e-05   4.4e-04   8.5e-05   2.1e-04
+  2.0  6.0   9.2e-05   2.6e-03   1.1e-04   1.5e-03   1.1e-04   7.5e-04   1.0e-04   4.5e-04   1.0e-04   2.2e-04
+  2.0  7.0   2.2e-04   2.6e-03   1.9e-04   1.6e-03   1.7e-04   7.6e-04   1.5e-04   4.6e-04   1.4e-04   2.2e-04
+  2.0  8.0   2.6e-04   2.6e-03   2.4e-04   1.6e-03   2.1e-04   7.7e-04   2.0e-04   4.6e-04   1.9e-04   2.3e-04
+  2.4  4.0   2.4e-04   4.8e-03   2.4e-04   3.1e-03   2.6e-04   1.7e-03   2.6e-04   1.1e-03   2.7e-04   5.8e-04
+  2.4  5.0   9.0e-05   4.6e-03   8.7e-05   3.0e-03   7.4e-05   1.6e-03   6.0e-05   1.0e-03   4.6e-05   5.6e-04
+  2.4  6.0   1.2e-04   4.5e-03   8.7e-05   2.9e-03   7.7e-05   1.6e-03   8.5e-05   1.0e-03   8.5e-05   5.5e-04
+  2.4  7.0   2.5e-04   4.4e-03   2.3e-04   2.8e-03   2.0e-04   1.5e-03   1.8e-04   9.9e-04   1.6e-04   5.3e-04
+  2.4  8.0   3.0e-04   4.3e-03   2.8e-04   2.8e-03   2.5e-04   1.5e-03   2.3e-04   9.6e-04   2.2e-04   5.2e-04
+  2.8  4.0   2.8e-04   6.6e-03   2.9e-04   4.3e-03   3.0e-04   2.4e-03   3.0e-04   1.6e-03   3.1e-04   8.7e-04
+  2.8  5.0   7.6e-05   6.5e-03   6.8e-05   4.2e-03   2.9e-05   2.3e-03   5.8e-05   1.5e-03   6.5e-05   8.5e-04
+  2.8  6.0   1.5e-04   6.4e-03   1.2e-04   4.2e-03   8.2e-05   2.3e-03   3.9e-05   1.5e-03   6.5e-05   8.4e-04
+  2.8  7.0   2.7e-04   6.3e-03   2.5e-04   4.1e-03   2.2e-04   2.3e-03   2.0e-04   1.5e-03   1.8e-04   8.2e-04
+  2.8  8.0   3.3e-04   6.2e-03   3.1e-04   4.0e-03   2.7e-04   2.2e-03   2.6e-04   1.5e-03   2.4e-04   8.1e-04
+
+==========================================================================================
+PRE-REGISTERED VERDICT
+==========================================================================================
+H1 PATP-opt < poly3 and poly4 (geo), baseline:
+   n= 8: PATP-opt 1.52e-05  poly3 2.58e-02  poly4 3.19e-02  -> yes
+   n=12: PATP-opt 1.01e-04  poly3 2.06e-02  poly4 2.52e-02  -> yes
+   n=16: PATP-opt 1.54e-04  poly3 1.84e-02  poly4 2.26e-02  -> yes
+   n=24: PATP-opt 2.01e-04  poly3 1.62e-02  poly4 2.03e-02  -> yes
+   H1: PASS
+H2 PATP-opt vs GL at equal n (no directional prediction):
+   n= 6: PATP-opt 1.95e-05  GL 2.56e-03  winner PATP-opt  ratio GL/PATP = 1.32e+02
+   n= 8: PATP-opt 1.52e-05  GL 1.54e-03  winner PATP-opt  ratio GL/PATP = 1.01e+02
+   n=12: PATP-opt 1.01e-04  GL 7.52e-04  winner PATP-opt  ratio GL/PATP = 7.42e+00
+   n=16: PATP-opt 1.54e-04  GL 4.51e-04  winner PATP-opt  ratio GL/PATP = 2.93e+00
+   n=24: PATP-opt 2.01e-04  GL 2.19e-04  winner PATP-opt  ratio GL/PATP = 1.09e+00
+   Q1-GL (GL beats PATP-opt at every n in (8, 12, 16, 24)): False
+H3 worst-case geo at equal total evaluations, PATP-opt (20 m nodes) vs GL (m per climate):
+   m= 6 (N_tot=120): PATP-opt 3.31e-04  GL 6.56e-03  -> PATP-opt
+   m= 8 (N_tot=160): PATP-opt 3.05e-04  GL 4.31e-03  -> PATP-opt
+   m=12 (N_tot=240): PATP-opt 2.98e-04  GL 2.39e-03  -> PATP-opt
+   m=16 (N_tot=320): PATP-opt 3.03e-04  GL 1.57e-03  -> PATP-opt
+   m=24 (N_tot=480): PATP-opt 3.08e-04  GL 8.70e-04  -> PATP-opt
+   H3: PASS (5/5)
+   descriptive, m in {1,2,3,4}: m=1: PATP-opt 4.6e-04 vs GL 9.8e-02; m=2: PATP-opt 3.9e-04 vs GL 3.3e-02; m=3: PATP-opt 3.8e-04 vs GL 1.8e-02; m=4: PATP-opt 3.7e-04 vs GL 1.2e-02
+DECISION RULE:
+   advantage regime -> Question 1: PATP-opt beats GL at n = [6, 8, 12, 16, 24]; Question 2 (equal total): at m = [6, 8, 12, 16, 24].
+   Q-a: secondary quadratures beating PATP-opt at every n in (8, 12, 16, 24): ['GaussV', 'GaussT']
+   Q-b: number of n in (8, 12, 16, 24) where the basis beats PATP-opt: {'sqrt3': 0, 'conf': 0} -> not triggered
+
+figure written: ../outputs/fig_engineering.pdf
+
+==========================================================================================
+POST-HOC (not pre-registered)
+==========================================================================================
+PH1 PATP exponents at a* (baseline climate)
+   n       a*  |a*-1/2|      p2      p3      p4  mean p  spread  conf c*
+   6   0.3730    0.1270  0.8256  0.7043  0.5962  0.7087  0.2294   0.6976
+   8   0.3702    0.1298  0.8222  0.6988  0.5891  0.7034  0.2331   0.6907
+  12   0.3676    0.1324  0.8189  0.6936  0.5823  0.6983  0.2366   0.6840
+  16   0.3663    0.1337  0.8174  0.6912  0.5792  0.6959  0.2382   0.6808
+  24   0.3653    0.1347  0.8161  0.6892  0.5766  0.6940  0.2395   0.6782
+
+PH2 Question 1 extended to n in {32, 48} (baseline climate)
+   n    method   shape        geo
+  32     poly3    None   1.51e-02
+  32     poly4    None   1.92e-02
+  32  PATP-opt  0.3651   2.17e-04
+  32     sqrt3    None   3.26e-04
+  32      conf  0.6775   2.74e-04
+  32        GL       -   1.30e-04
+  48     poly3    None   1.40e-02
+  48     poly4    None   1.81e-02
+  48  PATP-opt  0.3652   2.23e-04
+  48     sqrt3    None   3.08e-04
+  48      conf  0.6778   2.80e-04
+  48        GL       -   6.17e-05
+
+PH3 smallest per-climate m (N_tot = 20 m) at which a quadrature's worst-case geo is below PATP-opt's
+   GL     : beats PATP-opt at m = [] m=1: 9.8e-02 vs 4.6e-04; m=2: 3.3e-02 vs 3.9e-04; m=3: 1.8e-02 vs 3.8e-04; m=4: 1.2e-02 vs 3.7e-04
+   GaussV : beats PATP-opt at m = [4, 6, 8, 12, 16, 24] m=1: 1.1e-01 vs 4.6e-04; m=2: 1.9e-03 vs 3.9e-04; m=3: 3.9e-04 vs 3.8e-04; m=4: 1.1e-04 vs 3.7e-04
+   GaussT : beats PATP-opt at m = [3, 4, 6, 8, 12, 16, 24] m=1: 1.4e-01 vs 4.6e-04; m=2: 1.8e-03 vs 3.9e-04; m=3: 1.5e-05 vs 3.8e-04; m=4: 3.2e-07 vs 3.7e-04
+
+wall time 18 s

@@ -1,0 +1,288 @@
+P4 heavy-tail benchmark (PREM-D-26-00488, Reviewer 1 Major 6)
+PATP S=3 (i=2,3,4); PATP-r alpha in [0.0, 0.45]; PATP-opt alpha in [0, 1]; threshold 5%; mp.dps=50
+
+V1 Mellin closed form vs direct quadrature in x (mpmath, independent of the t-map):
+   max rel diff over 2 families x 3 tails x 7 orders = 8.5e-14
+V4 truncated moments E[X^e; X<=c] (incomplete beta) vs quadrature, e up to 12:
+   max rel diff = 8.6e-32
+V2 truth: mpmath tanh-sinh vs scipy adaptive quadrature, all cases, j=1..4: max rel diff = 1.1e-04
+
+====================================================================================================
+PRIMARY CONFIGURATION: Lomax input, quantile design D1, N = 401, q = 0.999
+rel. error per moment j, of the mean and of the std; 'undef' = a required Mellin value is infinite
+n_g = evaluations of g, n_M = distinct Mellin values for j <= 4
+====================================================================================================
+
+--- Lomax(a=3, lambda=2), R1: Hertz contact with preload, (1+x)^(2/3) - 1 ---
+x_hi = F^-1(0.999) = 18.0000;  share of E[g^2] from X > x_hi = 1.059e-01;  truth E[g] = 0.5267514605, std = 0.6645711310
+PATP-r: alpha* = 0.421317, exponents = [0.8882, 0.8067, 0.7328], coefs = [0.01201, -2.694, 7.075, -3.805], cond(A) = 1.07e+03, P_3 = 0.8882, admissible j = [1, 2, 3]
+PATP-opt: alpha* = 0.597843, exponents = [1.1563, 1.2864, 1.41], coefs = [-0.0001451, 2.539, -2.785, 0.8328], cond(A) = 5.64e+02, P_3 = 1.4100, admissible j = [1, 2]
+poly3 coefs = [0.01893, 0.5818, -0.02757, 0.0007868];  poly1 coefs = [0.1175, 0.4103]
+GJ largest node: n=8 -> 26.0, n=16 -> 91.5  (Gauss-Jacobi in t = X/(lambda+X), weight (1-t)^(a-1))
+method        n_g  n_M       rms       j=1       j=2       j=3       j=4      mean       std
+poly3-full    401   13  1.34e-02     undef     undef     undef     undef     undef     undef
+poly3-trunc   401   13  1.34e-02  1.52e-02  1.09e-01  3.99e-01  8.44e-01  1.52e-02  8.26e-02
+poly1         401    5  1.13e-01  1.94e-03  8.96e-02     undef     undef  1.94e-03  6.93e-02
+PATP-r        401   35  1.77e-03  3.05e-04  7.00e-03  8.14e-01     undef  3.05e-04  5.52e-03
+PATP-opt      401   35  6.47e-04  1.05e-03  7.19e+00     undef     undef  1.05e-03  2.56e+00
+GJ-8            8    0         -  3.73e-04  1.29e-02  1.42e-01  6.54e-01  3.73e-04  1.03e-02
+GJ-16          16    0         -  2.13e-05  1.72e-03  4.44e-02  4.57e-01  2.13e-05  1.39e-03
+g-trunc         -    -         -  1.47e-02  1.05e-01  3.91e-01  8.38e-01  1.47e-02  7.95e-02
+extrapolation g_hat(x)/g(x) at x = x_hi, 3 x_hi, 10 x_hi; growth exponent of g_hat:
+  poly3       1.0041    5.5649  122.5818   growth 3.0000
+  poly1       1.2259    1.6545    2.3863   growth 1.0000
+  PATP-r      0.9985    0.9523    0.7872   growth 0.8882
+  PATP-opt    1.0003    1.1246    2.2860   growth 1.4100
+  truth     growth 0.6667
+V3 closed form vs quadrature of the same surrogate, j=1,2: max rel diff = 5.3e-06
+error of E[g^2], split by region (relative to E[g^2]):
+  poly1       X<=x_hi -6.200e-02   X>x_hi +1.516e-01
+  PATP-r      X<=x_hi +4.111e-04   X>x_hi -7.410e-03
+  PATP-opt    X<=x_hi -2.034e-04   X>x_hi +7.186e+00
+  poly3-trunc fit on truncated law -3.818e-03   truncation bias -1.050e-01
+
+--- Lomax(a=3, lambda=2), R2: control ln(1+x) ---
+x_hi = F^-1(0.999) = 18.0000;  share of E[g^2] from X > x_hi = 2.089e-02;  truth E[g] = 0.5451774445, std = 0.4761530798
+PATP-r: alpha* = 0.314306, exponents = [0.7559, 0.5968, 0.4588], coefs = [0.07323, -1.905, 5.552, -3.029], cond(A) = 3.05e+02, P_3 = 0.7559, admissible j = [1, 2, 3]
+PATP-opt: alpha* = 0.578242, exponents = [1.1235, 1.225, 1.321], coefs = [-0.01265, 7.135, -10.18, 3.748], cond(A) = 8.53e+02, P_3 = 1.3210, admissible j = [1, 2]
+poly3 coefs = [0.07559, 0.6298, -0.06316, 0.002071];  poly1 coefs = [0.2724, 0.2736]
+GJ largest node: n=8 -> 26.0, n=16 -> 91.5  (Gauss-Jacobi in t = X/(lambda+X), weight (1-t)^(a-1))
+method        n_g  n_M       rms       j=1       j=2       j=3       j=4      mean       std
+poly3-full    401   13  4.80e-02     undef     undef     undef     undef     undef     undef
+poly3-trunc   401   13  4.80e-02  6.55e-03  3.17e-02  5.29e-02  1.16e-01  6.55e-03  2.85e-02
+poly1         401    5  2.14e-01  1.55e-03  2.21e-03     undef     undef  1.55e-03  4.60e-03
+PATP-r        401   35  9.26e-03  8.41e-04  2.55e-03  1.42e-01     undef  8.41e-04  1.84e-03
+PATP-opt      401   35  4.69e-03  3.13e-03  9.41e+00     undef     undef  3.13e-03  3.77e+00
+GJ-8            8    0         -  1.73e-05  1.98e-04  1.18e-03  4.81e-03  1.73e-05  2.06e-04
+GJ-16          16    0         -  4.34e-07  6.09e-06  4.52e-05  2.32e-04  4.34e-07  6.46e-06
+g-trunc         -    -         -  5.04e-03  1.99e-02  5.23e-02  1.09e-01  5.04e-03  1.66e-02
+extrapolation g_hat(x)/g(x) at x = x_hi, 3 x_hi, 10 x_hi; growth exponent of g_hat:
+  poly3       1.0287   43.9337  1951.7559   growth 3.0000
+  poly1       1.7653    3.7554    9.5274   growth 1.0000
+  PATP-r      0.9780    0.5826   -1.1927   growth 0.7559
+  PATP-opt    1.0046    2.4711   22.3553   growth 1.3210
+  truth     growth 0.0000  (logarithmic)
+V3 closed form vs quadrature of the same surrogate, j=1,2: max rel diff = 2.3e-11
+error of E[g^2], split by region (relative to E[g^2]):
+  poly1       X<=x_hi -1.443e-01   X>x_hi +1.421e-01
+  PATP-r      X<=x_hi +1.371e-03   X>x_hi -3.916e-03
+  PATP-opt    X<=x_hi -8.130e-04   X>x_hi +9.410e+00
+  poly3-trunc fit on truncated law -1.183e-02   truncation bias -1.991e-02
+
+--- Lomax(a=4, lambda=3), R1: Hertz contact with preload, (1+x)^(2/3) - 1 ---
+x_hi = F^-1(0.999) = 13.8702;  share of E[g^2] from X > x_hi = 6.726e-02;  truth E[g] = 0.5354136339, std = 0.6031591762
+PATP-r: alpha* = 0.431432, exponents = [0.9018, 0.8297, 0.764], coefs = [0.009686, -3.58, 8.807, -4.649], cond(A) = 1.62e+03, P_3 = 0.9018, admissible j = [1, 2, 3, 4]
+PATP-opt: alpha* = 0.601656, exponents = [1.1628, 1.2986, 1.4277], coefs = [0.0004416, 2.486, -2.707, 0.8068], cond(A) = 5.72e+02, P_3 = 1.4277, admissible j = [1, 2]
+poly3 coefs = [0.01506, 0.5945, -0.03262, 0.001157];  poly1 coefs = [0.1014, 0.4344]
+GJ largest node: n=8 -> 27.3, n=16 -> 93.3  (Gauss-Jacobi in t = X/(lambda+X), weight (1-t)^(a-1))
+method        n_g  n_M       rms       j=1       j=2       j=3       j=4      mean       std
+poly3-full    401   13  9.78e-03  1.41e-02     undef     undef     undef  1.41e-02     undef
+poly3-trunc   401   13  9.78e-03  1.13e-02  6.87e-02  2.35e-01  5.36e-01  1.13e-02  5.40e-02
+poly1         401    5  8.98e-02  7.26e-04  2.14e-02  6.63e-01     undef  7.26e-04  1.84e-02
+PATP-r        401   35  1.39e-03  1.48e-04  2.29e-03  2.06e-02  3.36e+00  1.48e-04  1.93e-03
+PATP-opt      401   35  4.11e-04  2.70e-04  1.32e-02     undef     undef  2.70e-04  1.15e-02
+GJ-8            8    0         -  3.55e-05  1.42e-03  2.01e-02  1.38e-01  3.55e-05  1.24e-03
+GJ-16          16    0         -  6.90e-07  6.28e-05  2.04e-03  3.20e-02  6.90e-07  5.56e-05
+g-trunc         -    -         -  1.10e-02  6.63e-02  2.29e-01  5.25e-01  1.10e-02  5.20e-02
+extrapolation g_hat(x)/g(x) at x = x_hi, 3 x_hi, 10 x_hi; growth exponent of g_hat:
+  poly3       1.0052    4.6114   98.0861   growth 3.0000
+  poly1       1.2138    1.6229    2.3279   growth 1.0000
+  PATP-r      0.9984    0.9512    0.7720   growth 0.9018
+  PATP-opt    1.0003    1.1019    2.1201   growth 1.4277
+  truth     growth 0.6667
+V3 closed form vs quadrature of the same surrogate, j=1,2: max rel diff = 6.2e-32
+error of E[g^2], split by region (relative to E[g^2]):
+  poly1       X<=x_hi -4.252e-02   X>x_hi +6.396e-02
+  PATP-r      X<=x_hi +3.011e-04   X>x_hi -2.590e-03
+  PATP-opt    X<=x_hi -1.128e-04   X>x_hi +1.329e-02
+  poly3-trunc fit on truncated law -2.332e-03   truncation bias -6.632e-02
+
+--- Lomax(a=4, lambda=3), R2: control ln(1+x) ---
+x_hi = F^-1(0.999) = 13.8702;  share of E[g^2] from X > x_hi = 1.687e-02;  truth E[g] = 0.5617247114, std = 0.4620949090
+PATP-r: alpha* = 0.330799, exponents = [0.7748, 0.6251, 0.4943], coefs = [0.05895, -2.25, 6.155, -3.274], cond(A) = 4.01e+02, P_3 = 0.7748, admissible j = [1, 2, 3, 4]
+PATP-opt: alpha* = 0.587830, exponents = [1.1395, 1.2548, 1.3641], coefs = [-0.009451, 6.226, -8.619, 3.093], cond(A) = 7.57e+02, P_3 = 1.3641, admissible j = [1, 2]
+poly3 coefs = [0.06334, 0.671, -0.07956, 0.003272];  poly1 coefs = [0.2492, 0.3128]
+GJ largest node: n=8 -> 27.3, n=16 -> 93.3  (Gauss-Jacobi in t = X/(lambda+X), weight (1-t)^(a-1))
+method        n_g  n_M       rms       j=1       j=2       j=3       j=4      mean       std
+poly3-full    401   13  3.72e-02  3.97e-02     undef     undef     undef  3.97e-02     undef
+poly3-trunc   401   13  3.72e-02  5.35e-03  2.35e-02  4.07e-02  8.97e-02  5.35e-03  2.14e-02
+poly1         401    5  1.83e-01  4.34e-04  3.32e-02  6.95e-01     undef  4.34e-04  4.27e-02
+PATP-r        401   35  7.43e-03  4.93e-04  1.93e-03  8.56e-03  3.29e-01  4.93e-04  1.66e-03
+PATP-opt      401   35  3.51e-03  1.08e-03  6.78e-02     undef     undef  1.08e-03  7.93e-02
+GJ-8            8    0         -  1.49e-06  1.79e-05  1.16e-04  5.30e-04  1.49e-06  2.00e-05
+GJ-16          16    0         -  1.30e-08  1.89e-07  1.51e-06  8.59e-06  1.30e-08  2.15e-07
+g-trunc         -    -         -  4.30e-03  1.59e-02  4.00e-02  8.17e-02  4.30e-03  1.34e-02
+extrapolation g_hat(x)/g(x) at x = x_hi, 3 x_hi, 10 x_hi; growth exponent of g_hat:
+  poly3       1.0351   33.5646  1476.3632   growth 3.0000
+  poly1       1.6996    3.5354    8.8340   growth 1.0000
+  PATP-r      0.9790    0.6019   -1.1792   growth 0.7748
+  PATP-opt    1.0049    2.2707   20.5148   growth 1.3641
+  truth     growth 0.0000  (logarithmic)
+V3 closed form vs quadrature of the same surrogate, j=1,2: max rel diff = 8.7e-32
+error of E[g^2], split by region (relative to E[g^2]):
+  poly1       X<=x_hi -1.042e-01   X>x_hi +7.096e-02
+  PATP-r      X<=x_hi +1.023e-03   X>x_hi -2.952e-03
+  PATP-opt    X<=x_hi -5.345e-04   X>x_hi +6.833e-02
+  poly3-trunc fit on truncated law -7.596e-03   truncation bias -1.589e-02
+
+--- Lomax(a=6, lambda=5), R1: Hertz contact with preload, (1+x)^(2/3) - 1 ---
+x_hi = F^-1(0.999) = 10.8114;  share of E[g^2] from X > x_hi = 4.368e-02;  truth E[g] = 0.5421248033, std = 0.5553411048
+PATP-r: alpha* = 0.441703, exponents = [0.916, 0.8536, 0.7967], coefs = [0.007673, -4.921, 11.45, -5.951], cond(A) = 2.60e+03, P_3 = 0.9160, admissible j = [1, 2, 3, 4]
+PATP-opt: alpha* = 0.604760, exponents = [1.1681, 1.3086, 1.4422], coefs = [0.0008724, 2.451, -2.655, 0.7909], cond(A) = 6.12e+02, P_3 = 1.4422, admissible j = [1, 2, 3, 4]
+poly3 coefs = [0.01173, 0.606, -0.03801, 0.001656];  poly1 coefs = [0.0878, 0.4544]
+GJ largest node: n=8 -> 27.6, n=16 -> 90.0  (Gauss-Jacobi in t = X/(lambda+X), weight (1-t)^(a-1))
+method        n_g  n_M       rms       j=1       j=2       j=3       j=4      mean       std
+poly3-full    401   13  7.02e-03  2.32e-03     undef     undef     undef  2.32e-03     undef
+poly3-trunc   401   13  7.02e-03  8.51e-03  4.41e-02  1.38e-01  3.15e-01  8.51e-03  3.57e-02
+poly1         401    5  7.15e-02  1.52e-04  2.34e-03  2.37e-01  1.08e+00  1.52e-04  2.14e-03
+PATP-r        401   35  1.08e-03  7.32e-05  7.37e-04  5.05e-03  2.32e-02  7.32e-05  6.50e-04
+PATP-opt      401   35  2.56e-04  6.80e-05  1.13e-03  1.40e-02  7.76e+02  6.80e-05  1.04e-03
+GJ-8            8    0         -  8.22e-07  3.94e-05  7.18e-04  6.98e-03  8.22e-07  3.77e-05
+GJ-16          16    0         -  2.24e-09  2.36e-07  9.53e-06  2.07e-04  2.24e-09  2.28e-07
+g-trunc         -    -         -  8.30e-03  4.27e-02  1.34e-01  3.05e-01  8.30e-03  3.44e-02
+extrapolation g_hat(x)/g(x) at x = x_hi, 3 x_hi, 10 x_hi; growth exponent of g_hat:
+  poly3       1.0063    3.8573   78.4838   growth 3.0000
+  poly1       1.1945    1.5809    2.2540   growth 1.0000
+  PATP-r      0.9983    0.9506    0.7584   growth 0.9160
+  PATP-opt    1.0003    1.0800    1.9431   growth 1.4422
+  truth     growth 0.6667
+V3 closed form vs quadrature of the same surrogate, j=1,2: max rel diff = 7.7e-32
+error of E[g^2], split by region (relative to E[g^2]):
+  poly1       X<=x_hi -2.793e-02   X>x_hi +3.027e-02
+  PATP-r      X<=x_hi +2.133e-04   X>x_hi -9.505e-04
+  PATP-opt    X<=x_hi -5.742e-05   X>x_hi +1.184e-03
+  poly3-trunc fit on truncated law -1.427e-03   truncation bias -4.272e-02
+
+--- Lomax(a=6, lambda=5), R2: control ln(1+x) ---
+x_hi = F^-1(0.999) = 10.8114;  share of E[g^2] from X > x_hi = 1.361e-02;  truth E[g] = 0.5753907996, std = 0.4477326864
+PATP-r: alpha* = 0.347166, exponents = [0.7941, 0.6547, 0.532], coefs = [0.0468, -2.688, 6.938, -3.606], cond(A) = 5.39e+02, P_3 = 0.7941, admissible j = [1, 2, 3, 4]
+PATP-opt: alpha* = 0.596844, exponents = [1.1546, 1.2833, 1.4054], coefs = [-0.006654, 5.598, -7.558, 2.657], cond(A) = 7.14e+02, P_3 = 1.4054, admissible j = [1, 2, 3, 4]
+poly3 coefs = [0.05194, 0.711, -0.09842, 0.005013];  poly1 coefs = [0.2271, 0.3482]
+GJ largest node: n=8 -> 27.6, n=16 -> 90.0  (Gauss-Jacobi in t = X/(lambda+X), weight (1-t)^(a-1))
+method        n_g  n_M       rms       j=1       j=2       j=3       j=4      mean       std
+poly3-full    401   13  2.84e-02  7.16e-03     undef     undef     undef  7.16e-03     undef
+poly3-trunc   401   13  2.84e-02  4.41e-03  1.75e-02  3.13e-02  6.79e-02  4.41e-03  1.61e-02
+poly1         401    5  1.55e-01  1.49e-04  3.52e-02  2.67e-01  1.74e+00  1.49e-04  4.76e-02
+PATP-r        401   35  5.89e-03  2.90e-04  9.89e-04  2.90e-03  7.68e-03  2.90e-04  8.32e-04
+PATP-opt      401   35  2.56e-03  3.72e-04  4.19e-03  2.11e-01  2.45e+04  3.72e-04  4.93e-03
+GJ-8            8    0         -  2.36e-08  4.22e-07  2.59e-06  1.41e-05  2.36e-08  5.21e-07
+GJ-16          16    0         -  3.82e-11  5.81e-10  4.99e-09  3.13e-08  3.82e-11  7.07e-10
+g-trunc         -    -         -  3.67e-03  1.26e-02  3.02e-02  5.96e-02  3.67e-03  1.08e-02
+extrapolation g_hat(x)/g(x) at x = x_hi, 3 x_hi, 10 x_hi; growth exponent of g_hat:
+  poly3       1.0406   25.8182  1121.1855   growth 3.0000
+  poly1       1.6166    3.2825    8.0705   growth 1.0000
+  PATP-r      0.9804    0.6230   -1.1570   growth 0.7941
+  PATP-opt    1.0049    2.0848   18.6182   growth 1.4054
+  truth     growth 0.0000  (logarithmic)
+V3 closed form vs quadrature of the same surrogate, j=1,2: max rel diff = 4.9e-32
+error of E[g^2], split by region (relative to E[g^2]):
+  poly1       X<=x_hi -7.382e-02   X>x_hi +3.860e-02
+  PATP-r      X<=x_hi +7.476e-04   X>x_hi -1.736e-03
+  PATP-opt    X<=x_hi -3.505e-04   X>x_hi +4.545e-03
+  poly3-trunc fit on truncated law -4.884e-03   truncation bias -1.263e-02
+
+====================================================================================================
+SUMMARY TABLES
+====================================================================================================
+
+[PRIMARY]  family=lomax, design=quantile, N=401, q=0.999
+ a resp  alpha_r  alpha_o | rel. error of std:    PATP-r PATP-opt p3-trunc    poly1     GJ-8    GJ-16 | mean:    PATP-r p3-trunc    poly1 | H1 H2
+ 3 R1     0.4213   0.5978 |                     5.52e-03 2.56e+00 8.26e-02 6.93e-02 1.03e-02 1.39e-03 |        3.05e-04 1.52e-02 1.94e-03 | Y  Y
+ 3 R2     0.3143   0.5782 |                     1.84e-03 3.77e+00 2.85e-02 4.60e-03 2.06e-04 6.46e-06 |        8.41e-04 6.55e-03 1.55e-03 | Y  Y
+ 4 R1     0.4314   0.6017 |                     1.93e-03 1.15e-02 5.40e-02 1.84e-02 1.24e-03 5.56e-05 |        1.48e-04 1.13e-02 7.26e-04 | Y  Y
+ 4 R2     0.3308   0.5878 |                     1.66e-03 7.93e-02 2.14e-02 4.27e-02 2.00e-05 2.15e-07 |        4.93e-04 5.35e-03 4.34e-04 | Y  Y
+ 6 R1     0.4417   0.6048 |                     6.50e-04 1.04e-03 3.57e-02 2.14e-03 3.77e-05 2.28e-07 |        7.32e-05 8.51e-03 1.52e-04 | Y  Y
+ 6 R2     0.3472   0.5968 |                     8.32e-04 4.93e-03 1.61e-02 4.76e-02 5.21e-07 7.07e-10 |        2.90e-04 4.41e-03 1.49e-04 | Y  Y
+
+[S1 q=0.9999]  family=lomax, design=quantile, N=401, q=0.9999
+ a resp  alpha_r  alpha_o | rel. error of std:    PATP-r PATP-opt p3-trunc    poly1     GJ-8    GJ-16 | mean:    PATP-r p3-trunc    poly1 | H1 H2
+ 3 R1     0.3981   0.5886 |                     6.34e-04 8.59e-01 4.49e-02 1.70e-01 1.03e-02 1.39e-03 |        6.87e-06 5.21e-03 9.30e-03 | Y  Y
+ 3 R2     0.2718   0.5576 |                     2.86e-03 8.07e-01 3.14e-02 4.38e-01 2.06e-04 6.46e-06 |        1.10e-05 7.24e-03 1.18e-02 | Y  Y
+ 4 R1     0.4102   0.5945 |                     1.93e-04 3.78e-03 2.28e-02 1.31e-01 1.24e-03 5.56e-05 |        1.15e-05 3.04e-03 7.39e-03 | Y  Y
+ 4 R2     0.2932   0.5702 |                     2.17e-03 1.41e-02 2.24e-02 3.27e-01 2.00e-05 2.15e-07 |        4.15e-06 4.05e-03 1.04e-02 | Y  Y
+ 6 R1     0.4228   0.5997 |                     3.11e-04 1.03e-04 1.18e-02 8.32e-02 3.77e-05 2.28e-07 |        1.05e-05 1.85e-03 5.32e-03 | Y  Y
+ 6 R2     0.3148   0.5823 |                     1.71e-03 4.95e-05 1.38e-02 2.18e-01 5.21e-07 7.07e-10 |        1.52e-05 2.35e-03 8.21e-03 | Y  Y
+
+[S2 uniform-x design]  family=lomax, design=uniform, N=401, q=0.999
+ a resp  alpha_r  alpha_o | rel. error of std:    PATP-r PATP-opt p3-trunc    poly1     GJ-8    GJ-16 | mean:    PATP-r p3-trunc    poly1 | H1 H2
+ 3 R1     0.1188   0.5823 |                     2.15e-03 5.19e-01 1.13e-01 1.53e-01 1.03e-02 1.39e-03 |        2.36e-03 3.34e-02 6.64e-01 | Y  Y
+ 3 R2     0.2474   0.5383 |                     2.48e-02 3.22e-01 1.88e-01 5.35e-01 2.06e-04 6.46e-06 |        1.05e-02 1.33e-01 9.87e-01 | Y  Y
+ 4 R1     0.1225   0.5904 |                     1.19e-03 5.06e-03 7.50e-02 1.81e-01 1.24e-03 5.56e-05 |        1.32e-03 1.14e-02 4.41e-01 | Y  Y
+ 4 R2     0.2768   0.5552 |                     1.39e-02 1.15e-02 1.34e-01 5.18e-01 2.00e-05 2.15e-07 |        4.04e-03 6.49e-02 7.05e-01 | Y  Y
+ 6 R1     0.4174   0.5972 |                     7.78e-04 6.05e-04 4.88e-02 1.76e-01 3.77e-05 2.28e-07 |        7.08e-04 1.01e-03 2.85e-01 | Y  Y
+ 6 R2     0.3029   0.5708 |                     6.97e-03 3.66e-04 8.93e-02 4.79e-01 5.21e-07 7.07e-10 |        1.34e-03 2.72e-02 4.88e-01 | Y  Y
+
+[S3 N=21 nodes]  family=lomax, design=quantile, N=21, q=0.999
+ a resp  alpha_r  alpha_o | rel. error of std:    PATP-r PATP-opt p3-trunc    poly1     GJ-8    GJ-16 | mean:    PATP-r p3-trunc    poly1 | H1 H2
+ 3 R1     0.4500   0.6036 |                     5.12e-03 4.97e+00 1.26e-01 1.18e-01 1.03e-02 1.39e-03 |        1.92e-04 2.73e-02 3.93e-02 | Y  Y
+ 3 R2     0.3566   0.6034 |                     1.37e-02 2.31e+01 1.37e-01 4.25e-01 2.06e-04 6.46e-06 |        1.45e-03 5.02e-02 6.31e-02 | Y  Y
+ 4 R1     0.4500   0.6045 |                     5.41e-04 1.48e-02 7.89e-02 1.46e-01 1.24e-03 5.56e-05 |        7.75e-05 1.83e-02 3.39e-02 | Y  Y
+ 4 R2     0.3642   0.6068 |                     8.72e-03 2.63e-01 9.68e-02 4.14e-01 2.00e-05 2.15e-07 |        9.87e-04 3.14e-02 5.75e-02 | Y  Y
+ 6 R1     0.4500   0.6052 |                     5.67e-04 9.11e-04 4.97e-02 1.40e-01 3.77e-05 2.28e-07 |        8.65e-05 1.26e-02 2.89e-02 | Y  Y
+ 6 R2     0.3725   0.6102 |                     6.88e-03 4.88e-03 6.27e-02 3.73e-01 5.21e-07 7.07e-10 |        5.92e-04 2.00e-02 5.18e-02 | Y  Y
+
+[S4 log-logistic input]  family=loglogistic, design=quantile, N=401, q=0.999
+ a resp  alpha_r  alpha_o | rel. error of std:    PATP-r PATP-opt p3-trunc    poly1     GJ-8    GJ-16 | mean:    PATP-r p3-trunc    poly1 | H1 H2
+ 3 R1     0.4500   0.6069 |                     4.66e-03 3.41e+00 7.46e-02 5.27e-02 1.31e-01 6.82e-02 |        1.37e-04 7.13e-03 5.88e-04 | Y  Y
+ 3 R2     0.3506   0.6000 |                     1.90e-03 8.33e+00 2.57e-02 3.14e-02 4.52e-02 1.57e-02 |        3.03e-04 3.38e-03 3.57e-04 | Y  Y
+ 4 R1     0.1325   0.6080 |                     1.72e-04 1.77e-03 4.56e-02 1.36e-02 8.56e-02 3.94e-02 |        1.79e-05 4.06e-03 1.18e-05 | Y  Y
+ 4 R2     0.3705   0.6175 |                     1.28e-03 4.89e-02 1.97e-02 3.42e-03 4.06e-02 1.38e-02 |        9.29e-05 2.27e-03 2.69e-04 | Y  Y
+ 6 R1     0.1343   0.6063 |                     2.88e-05 1.34e-05 2.73e-02 5.00e-03 5.59e-02 2.24e-02 |        4.53e-06 2.06e-03 1.71e-04 | Y  Y
+ 6 R2     0.3880   0.6285 |                     2.63e-04 6.80e-04 1.49e-02 6.09e-03 3.69e-02 1.23e-02 |        1.83e-05 1.36e-03 5.25e-04 | Y  Y
+
+====================================================================================================
+PRE-REGISTERED VERDICT (response R1, primary configuration)
+====================================================================================================
+a = 3: H1 PASS (PATP-r mean err 3.05e-04, std err 5.52e-03, threshold 5%; poly3-full std: undef) | H2 PASS (std err poly3-trunc 8.26e-02, poly1 6.93e-02)
+        H3 (report): std err GJ-8 1.03e-02, GJ-16 1.39e-03; mean err GJ-8 3.73e-04, GJ-16 2.13e-05
+a = 4: H1 PASS (PATP-r mean err 1.48e-04, std err 1.93e-03, threshold 5%; poly3-full std: undef) | H2 PASS (std err poly3-trunc 5.40e-02, poly1 1.84e-02)
+        H3 (report): std err GJ-8 1.24e-03, GJ-16 5.56e-05; mean err GJ-8 3.55e-05, GJ-16 6.90e-07
+a = 6: H1 PASS (PATP-r mean err 7.32e-05, std err 6.50e-04, threshold 5%; poly3-full std: undef) | H2 PASS (std err poly3-trunc 3.57e-02, poly1 2.14e-03)
+        H3 (report): std err GJ-8 3.77e-05, GJ-16 2.28e-07; mean err GJ-8 8.22e-07, GJ-16 2.24e-09
+R1: H1 and H2 hold for a in [3, 4, 6] -> 3/3 -> ACCURACY CLAIM ALLOWED
+R2 control: H1 and H2 hold for a in [3, 4, 6] -> 3/3 -> scope sub-linear responses in general
+  S1 q=0.9999              R1 H1&H2 for a in [3, 4, 6] (3/3): same as primary
+  S2 uniform-x design      R1 H1&H2 for a in [3, 4, 6] (3/3): same as primary
+  S3 N=21 nodes            R1 H1&H2 for a in [3, 4, 6] (3/3): same as primary
+  S4 log-logistic input    R1 H1&H2 for a in [3, 4, 6] (3/3): same as primary
+
+====================================================================================================
+POST-HOC (added after the first run; not pre-registered; does not enter H1-H3)
+====================================================================================================
+P1 truth, Lomax: tanh-sinh (v-variable) vs hypergeometric closed form E[(1+X)^c] = a/(a-c) 2F1(-c,1;a-c+1;1-lambda), R1 and R2, j=1..4: max rel diff = 2.9e-12
+P1 truth, v-variable (30 digits) vs x-variable (45 digits) tanh-sinh, max rel diff:
+   loglogistic  j<=2   2.3e-22  at ('log-logistic(beta=3, sigma=0.8270)', 'R1', 2)
+   loglogistic  j=3,4  1.1e-04  at ('log-logistic(beta=3, sigma=0.8270)', 'R1', 4)
+   lomax        j<=2   8.4e-32  at ('Lomax(a=3, lambda=2)', 'R2', 2)
+   lomax        j=3,4  2.9e-12  at ('Lomax(a=3, lambda=2)', 'R1', 4)
+P1 location of the V2 maximum (mpmath vs scipy, 1.1e-04): ('log-logistic(beta=3, sigma=0.8270)', 'R1', 4)
+P2 V3 detail, Lomax a=3, R1: closed form vs quadrature of the same surrogate
+   poly1     j=1  tail integrand ~ x^(1.000 - 4):  |cf - quad30|/|cf| = 0.0e+00,  |cf - quad45|/|cf| = 0.0e+00
+   poly1     j=2  tail integrand ~ x^(2.000 - 4):  |cf - quad30|/|cf| = 4.8e-32,  |cf - quad45|/|cf| = 0.0e+00
+   PATP-r    j=1  tail integrand ~ x^(0.888 - 4):  |cf - quad30|/|cf| = 4.3e-32,  |cf - quad45|/|cf| = 5.6e-47
+   PATP-r    j=2  tail integrand ~ x^(1.776 - 4):  |cf - quad30|/|cf| = 5.1e-32,  |cf - quad45|/|cf| = 3.8e-47
+   PATP-opt  j=1  tail integrand ~ x^(1.410 - 4):  |cf - quad30|/|cf| = 7.4e-32,  |cf - quad45|/|cf| = 5.2e-48
+   PATP-opt  j=2  tail integrand ~ x^(2.820 - 4):  |cf - quad30|/|cf| = 5.3e-06,  |cf - quad45|/|cf| = 2.0e-08
+P3 PATP-r surrogate beyond the design range (primary): leading coefficient, zero crossing x0, P(X > x0)
+   a=3 R1: leading coef -2.694 on x^0.8882;  x0 = 1318 = 73.2 x_hi;  P(X > x0) = 3.48e-09
+   a=3 R2: leading coef -1.905 on x^0.7559;  x0 = 96.59 = 5.37 x_hi;  P(X > x0) = 8.35e-06
+   a=4 R1: leading coef -3.580 on x^0.9018;  x0 = 840 = 60.6 x_hi;  P(X > x0) = 1.60e-10
+   a=4 R2: leading coef -2.250 on x^0.7748;  x0 = 75.85 = 5.47 x_hi;  P(X > x0) = 2.10e-06
+   a=6 R1: leading coef -4.921 on x^0.9160;  x0 = 559.4 = 51.7 x_hi;  P(X > x0) = 4.84e-13
+   a=6 R2: leading coef -2.688 on x^0.7941;  x0 = 60.42 = 5.59 x_hi;  P(X > x0) = 1.99e-07
+P4 PATP-r relative error of E[g^j] vs j P_3(alpha*)/a (primary; 1 = admissibility edge)
+   a=3 R1: j=1: 0.296 -> 3.05e-04;  j=2: 0.592 -> 7.00e-03;  j=3: 0.888 -> 8.14e-01;  j=4: 1.184 -> undef
+   a=3 R2: j=1: 0.252 -> 8.41e-04;  j=2: 0.504 -> 2.55e-03;  j=3: 0.756 -> 1.42e-01;  j=4: 1.008 -> undef
+   a=4 R1: j=1: 0.225 -> 1.48e-04;  j=2: 0.451 -> 2.29e-03;  j=3: 0.676 -> 2.06e-02;  j=4: 0.902 -> 3.36e+00
+   a=4 R2: j=1: 0.194 -> 4.93e-04;  j=2: 0.387 -> 1.93e-03;  j=3: 0.581 -> 8.56e-03;  j=4: 0.775 -> 3.29e-01
+   a=6 R1: j=1: 0.153 -> 7.32e-05;  j=2: 0.305 -> 7.37e-04;  j=3: 0.458 -> 5.05e-03;  j=4: 0.611 -> 2.32e-02
+   a=6 R2: j=1: 0.132 -> 2.90e-04;  j=2: 0.265 -> 9.89e-04;  j=3: 0.397 -> 2.90e-03;  j=4: 0.529 -> 7.68e-03
+P5 degree-2 polynomial on the primary design, full input law (admissible for j < a/2):
+   a=3 R1: coefs [0.04604, 0.5189, -0.01076];  mean err 9.16e-03, std err undef  (PATP-r: 3.05e-04, 5.52e-03)
+   a=3 R2: coefs [0.147, 0.4643, -0.01888];  mean err 1.73e-02, std err undef  (PATP-r: 8.41e-04, 1.84e-03)
+   a=4 R1: coefs [0.03822, 0.5367, -0.0137];  mean err 2.96e-03, std err undef  (PATP-r: 1.48e-04, 1.93e-03)
+   a=4 R2: coefs [0.1288, 0.5076, -0.02608];  mean err 6.26e-03, std err undef  (PATP-r: 4.93e-04, 1.66e-03)
+   a=6 R1: coefs [0.0312, 0.5531, -0.01711];  mean err 1.07e-03, std err 6.50e-03  (PATP-r: 7.32e-05, 6.50e-04)
+   a=6 R2: coefs [0.1109, 0.5509, -0.03513];  mean err 2.51e-03, std err 3.49e-02  (PATP-r: 2.90e-04, 8.32e-04)
+
+wall time 8 s

@@ -1,5 +1,7 @@
-# Reproducibility dependencies (tested with Python 3.13).
-numpy
-scipy
-matplotlib
-sympy
+# Reproducibility dependencies, pinned to the versions that produced the revised
+# manuscript's numbers (Python 3.14.5; see SESSION_INFO.md).
+numpy==2.4.5
+scipy==1.17.1
+mpmath==1.3.0
+sympy==1.14.0
+matplotlib==3.10.9

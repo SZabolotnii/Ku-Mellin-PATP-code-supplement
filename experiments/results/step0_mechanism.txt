@@ -1,0 +1,15 @@
+1. M4 moment errors: float64 closed form vs 50-digit closed form vs quadrature of the surrogate
+   alpha* = 0.5202947552, coefs = [0.025242, 593.593199, -1223.831652, 631.542749]
+    j   float64 rel  50-digit rel    quad rel   poly3 rel   impr (50-digit)
+    1      5.56e-05      5.56e-05    5.56e-05    2.62e-04            +78.8%
+    2      1.15e-05      1.15e-05    1.15e-05    3.39e-04            +96.6%
+    3      1.48e-05      1.50e-05    1.50e-05    1.01e-04            +85.2%
+    4      2.44e-05      1.52e-04    1.52e-04    5.17e-04            +70.7%
+   published tab:rq3 (results/rq3.txt): j=4 PATP rel 5.97e-04, improvement -15.6%, row avg +61.3%
+
+2. PATP-opt vs the basis {1, x^c, x^c ln x, x^c ln^2 x}, c optimised (5 parameters each)
+   target    alpha*   mean p   spread    L2 PATP      c*  L2 xc-log
+   M1         0.451    0.877    0.102   3.70e-04   0.876   3.75e-04
+   M4         0.520    1.055    0.047   1.99e-03   1.054   1.99e-03
+   M6         0.620    1.356    0.321   1.02e-04   1.051   1.44e-04
+   M7         0.622    1.361    0.325   1.57e-04   1.157   1.68e-04
